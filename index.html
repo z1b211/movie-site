@@ -3,219 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电影推荐站</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>电影推荐站 - 探索光影世界</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
-        <div class="container">
-            <h1 class="logo">电影推荐站</h1>
-            <p class="subtitle">探索光影世界，发现精彩故事</p>
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1 class="site-title">🎬 电影推荐站</h1>
+            <p class="site-subtitle">探索光影世界，发现精彩故事</p>
         </div>
     </header>
 
-    <nav class="navbar">
-        <div class="container">
+    <nav class="nav">
+        <div class="nav-container">
             <ul class="nav-links">
-                <li><a href="#popular">热门推荐</a></li>
-                <li><a href="#drama">剧情佳作</a></li>
-                <li><a href="#fantasy">奇幻冒险</a></li>
-                <li><a href="#animation">动画精选</a></li>
+                <li><a href="#" class="nav-link active" data-category="all">全部</a></li>
+                <li><a href="#" class="nav-link" data-category="popular">热门推荐</a></li>
+                <li><a href="#" class="nav-link" data-category="drama">剧情佳作</a></li>
+                <li><a href="#" class="nav-link" data-category="fantasy">奇幻冒险</a></li>
+                <li><a href="#" class="nav-link" data-category="animation">动画精选</a></li>
             </ul>
         </div>
     </nav>
 
+    <div class="controls">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="搜索电影...">
+            <button id="searchBtn">🔍</button>
+        </div>
+        <div class="sort-box">
+            <select id="sortSelect">
+                <option value="rating-desc">评分最高</option>
+                <option value="rating-asc">评分最低</option>
+                <option value="year-desc">最新</option>
+                <option value="year-asc">最早</option>
+                <option value="name-asc">名称 A-Z</option>
+            </select>
+        </div>
+    </div>
+
     <main class="main">
-        <section id="popular" class="section">
-            <div class="container">
-                <h2 class="section-title">🔥 热门推荐</h2>
-                <div class="movie-grid">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20Inception%20sci-fi%20dream%20world%20city%20bending&image_size=portrait_16_9" alt="盗梦空间">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">盗梦空间</h3>
-                            <p class="movie-year">2010</p>
-                            <p class="movie-desc">在梦境与现实之间穿梭，一场关于意识与潜意识的终极探索。</p>
-                            <div class="movie-rating">⭐ 9.3</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20Interstellar%20space%20black%20hole%20astronaut%20epic&image_size=portrait_16_9" alt="星际穿越">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">星际穿越</h3>
-                            <p class="movie-year">2014</p>
-                            <p class="movie-desc">穿越虫洞，跨越时空，为人类寻找新家园的壮丽史诗。</p>
-                            <div class="movie-rating">⭐ 9.4</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20Parasite%20dark%20thriller%20social%20commentary%20mansion&image_size=portrait_16_9" alt="寄生虫">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">寄生虫</h3>
-                            <p class="movie-year">2019</p>
-                            <p class="movie-desc">贫富差距下的黑色寓言，奥斯卡最佳影片的震撼之作。</p>
-                            <div class="movie-rating">⭐ 9.0</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="drama" class="section">
-            <div class="container">
-                <h2 class="section-title">🎭 剧情佳作</h2>
-                <div class="movie-grid">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20The%20Shawshank%20Redemption%20prison%20hope%20freedom&image_size=portrait_16_9" alt="肖申克的救赎">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">肖申克的救赎</h3>
-                            <p class="movie-year">1994</p>
-                            <p class="movie-desc">希望是美好的事物，也许是最美好的，而美好的事物永不消逝。</p>
-                            <div class="movie-rating">⭐ 9.7</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20Forrest%20Gump%20running%20life%20journey%20American%20dream&image_size=portrait_16_9" alt="阿甘正传">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">阿甘正传</h3>
-                            <p class="movie-year">1994</p>
-                            <p class="movie-desc">人生就像一盒巧克力，你永远不知道下一颗是什么味道。</p>
-                            <div class="movie-rating">⭐ 9.5</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20Schindlers%20List%20holocaust%20black%20and%20white%20hope&image_size=portrait_16_9" alt="辛德勒的名单">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">辛德勒的名单</h3>
-                            <p class="movie-year">1993</p>
-                            <p class="movie-desc">在黑暗中闪耀的人性光辉，一段不可磨灭的历史记忆。</p>
-                            <div class="movie-rating">⭐ 9.6</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="fantasy" class="section">
-            <div class="container">
-                <h2 class="section-title">✨ 奇幻冒险</h2>
-                <div class="movie-grid">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20The%20Lord%20of%20the%20Rings%20fantasy%20epic%20middle%20earth%20battle&image_size=portrait_16_9" alt="指环王">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">指环王三部曲</h3>
-                            <p class="movie-year">2001-2003</p>
-                            <p class="movie-desc">中土世界的壮丽史诗，勇气与友情的永恒赞歌。</p>
-                            <div class="movie-rating">⭐ 9.4</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20Harry%20Potter%20magic%20wizard%20school%20castle&image_size=portrait_16_9" alt="哈利波特">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">哈利波特系列</h3>
-                            <p class="movie-year">2001-2011</p>
-                            <p class="movie-desc">魔法世界的大门已经打开，一段关于成长与勇气的传奇。</p>
-                            <div class="movie-rating">⭐ 9.1</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20movie%20poster%20Pan%27s%20Labyrinth%20dark%20fantasy%20fairy%20tale%20spain&image_size=portrait_16_9" alt="潘神的迷宫">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">潘神的迷宫</h3>
-                            <p class="movie-year">2006</p>
-                            <p class="movie-desc">现实与幻想交织的黑暗童话，一部视觉与情感的杰作。</p>
-                            <div class="movie-rating">⭐ 8.8</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="animation" class="section">
-            <div class="container">
-                <h2 class="section-title">🎬 动画精选</h2>
-                <div class="movie-grid">
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20animated%20movie%20poster%20Spirited%20Away%20anime%20bath%20house%20fantasy&image_size=portrait_16_9" alt="千与千寻">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">千与千寻</h3>
-                            <p class="movie-year">2001</p>
-                            <p class="movie-desc">宫崎骏的奇幻世界，关于成长与勇气的永恒寓言。</p>
-                            <div class="movie-rating">⭐ 9.4</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20animated%20movie%20poster%20Your%20Name%20anime%20comet%20love%20story&image_size=portrait_16_9" alt="你的名字">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">你的名字</h3>
-                            <p class="movie-year">2016</p>
-                            <p class="movie-desc">跨越时空的命运之恋，新海诚的视觉盛宴。</p>
-                            <div class="movie-rating">⭐ 9.1</div>
-                        </div>
-                    </div>
-
-                    <div class="movie-card">
-                        <div class="movie-poster">
-                            <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cinematic%20animated%20movie%20poster%20Coco%20Day%20of%20the%20Dead%20colorful%20family&image_size=portrait_16_9" alt="寻梦环游记">
-                        </div>
-                        <div class="movie-info">
-                            <h3 class="movie-title">寻梦环游记</h3>
-                            <p class="movie-year">2017</p>
-                            <p class="movie-desc">在亡灵世界寻找记忆与亲情，温暖人心的动画经典。</p>
-                            <div class="movie-rating">⭐ 9.1</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div id="loading" class="loading" style="display: none;">
+            <div class="spinner"></div>
+            <p>加载中...</p>
+        </div>
+        <div id="moviesGrid" class="movies-grid"></div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <p>© 2026 电影推荐站 | 探索光影世界</p>
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body"></div>
         </div>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-nav">
+            <button id="prevBtn">&larr;</button>
+            <button id="nextBtn">&rarr;</button>
+        </div>
+        <img id="lightboxImg" src="" alt="">
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2026 电影推荐站 | 探索光影世界</p>
     </footer>
 
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
