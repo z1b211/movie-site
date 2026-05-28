@@ -3,74 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电影推荐站 - 探索光影世界</title>
-    <link rel="stylesheet" href="styles.css?v=2026052801">
+    <title>电影推荐站</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
+        .header { text-align: center; padding: 50px; background: linear-gradient(135deg, #1a1a2e, #16213e); }
+        .site-title { font-size: 2.5rem; margin-bottom: 10px; }
+        .nav { display: flex; justify-content: center; gap: 20px; padding: 20px; background: #16213e; }
+        .nav a { color: white; text-decoration: none; padding: 10px 20px; border-radius: 20px; transition: all 0.3s; }
+        .nav a:hover, .nav a.active { background: #e74c3c; }
+        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .movie-card { background: #0f3460; border-radius: 15px; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
+        .movie-card:hover { transform: translateY(-5px); }
+        .movie-card img { width: 100%; height: 350px; object-fit: cover; }
+        .movie-info { padding: 15px; }
+        .movie-title { font-size: 1.2rem; margin-bottom: 5px; }
+        .movie-meta { display: flex; justify-content: space-between; color: #95a5a6; margin-bottom: 10px; }
+        .movie-rating { color: #f39c12; }
+        .footer { text-align: center; padding: 30px; background: #16213e; color: #95a5a6; }
+    </style>
 </head>
 <body>
     <header class="header">
-        <div class="header-bg"></div>
-        <div class="header-content">
-            <h1 class="site-title">🎬 电影推荐站</h1>
-            <p class="site-subtitle">探索光影世界，发现精彩故事</p>
-        </div>
+        <h1 class="site-title">🎬 电影推荐站</h1>
+        <p>探索光影世界，发现精彩故事</p>
     </header>
-
+    
     <nav class="nav">
-        <div class="nav-container">
-            <ul class="nav-links">
-                <li><a href="#" class="nav-link active" data-category="all">全部</a></li>
-                <li><a href="#" class="nav-link" data-category="popular">热门推荐</a></li>
-                <li><a href="#" class="nav-link" data-category="drama">剧情佳作</a></li>
-                <li><a href="#" class="nav-link" data-category="fantasy">奇幻冒险</a></li>
-                <li><a href="#" class="nav-link" data-category="animation">动画精选</a></li>
-            </ul>
-        </div>
+        <a href="#" class="active" data-cat="all">全部</a>
+        <a href="#" data-cat="popular">热门推荐</a>
+        <a href="#" data-cat="drama">剧情佳作</a>
+        <a href="#" data-cat="animation">动画精选</a>
+        <a href="#" data-cat="fantasy">奇幻冒险</a>
     </nav>
-
-    <div class="controls">
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="搜索电影...">
-            <button id="searchBtn">🔍</button>
-        </div>
-        <div class="sort-box">
-            <select id="sortSelect">
-                <option value="rating-desc">评分最高</option>
-                <option value="rating-asc">评分最低</option>
-                <option value="year-desc">最新</option>
-                <option value="year-asc">最早</option>
-                <option value="title-asc">名称 A-Z</option>
-            </select>
-        </div>
-    </div>
-
-    <main class="main">
-        <div id="loading" class="loading" style="display: none;">
-            <div class="spinner"></div>
-            <p>加载中...</p>
-        </div>
-        <div id="moviesGrid" class="movies-grid"></div>
-    </main>
-
-    <div id="detailModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">×</span>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-
-    <div id="lightbox" class="lightbox">
-        <span class="lightbox-close">×</span>
-        <div class="lightbox-nav">
-            <button id="prevBtn">←</button>
-            <button id="nextBtn">→</button>
-        </div>
-        <img id="lightboxImg" src="" alt="">
-    </div>
-
+    
+    <div class="movies-grid" id="moviesGrid"></div>
+    
     <footer class="footer">
-        <p>© 2026 电影推荐站 | 探索光影世界</p>
+        <p>© 2026 电影推荐站</p>
     </footer>
 
-    <script src="script.js?v=2026052804"></script>
+    <script>
+        var movies = [
+            {id:1,title:"The Shawshank Redemption",year:1994,rating:9.7,cat:"drama",img:"https://picsum.photos/300/450?random=1"},
+            {id:2,title:"Forrest Gump",year:1994,rating:9.5,cat:"drama",img:"https://picsum.photos/300/450?random=2"},
+            {id:3,title:"Interstellar",year:2014,rating:9.4,cat:"popular",img:"https://picsum.photos/300/450?random=3"},
+            {id:4,title:"Inception",year:2010,rating:9.3,cat:"popular",img:"https://picsum.photos/300/450?random=4"},
+            {id:5,title:"Titanic",year:1997,rating:9.4,cat:"popular",img:"https://picsum.photos/300/450?random=5"},
+            {id:6,title:"Spirited Away",year:2001,rating:9.4,cat:"animation",img:"https://picsum.photos/300/450?random=6"},
+            {id:7,title:"Your Name",year:2016,rating:9.1,cat:"animation",img:"https://picsum.photos/300/450?random=7"},
+            {id:8,title:"The Godfather",year:1972,rating:9.4,cat:"drama",img:"https://picsum.photos/300/450?random=8"},
+            {id:9,title:"The Dark Knight",year:2008,rating:9.2,cat:"fantasy",img:"https://picsum.photos/300/450?random=9"},
+            {id:10,title:"Avengers",year:2019,rating:8.5,cat:"fantasy",img:"https://picsum.photos/300/450?random=10"},
+            {id:11,title:"Coco",year:2017,rating:9.1,cat:"animation",img:"https://picsum.photos/300/450?random=11"},
+            {id:12,title:"Parasite",year:2019,rating:8.8,cat:"popular",img:"https://picsum.photos/300/450?random=12"}
+        ];
+
+        var currentCat = 'all';
+
+        function showMovies() {
+            var grid = document.getElementById('moviesGrid');
+            grid.innerHTML = '';
+            var filtered = movies.filter(function(m) {
+                return currentCat === 'all' || m.cat === currentCat;
+            });
+            filtered.forEach(function(m) {
+                var card = document.createElement('div');
+                card.className = 'movie-card';
+                card.innerHTML = '<img src="'+m.img+'" alt="'+m.title+'"><div class="movie-info"><h3 class="movie-title">'+m.title+'</h3><div class="movie-meta"><span>'+m.year+'</span><span class="movie-rating">⭐ '+m.rating+'</span></div></div>';
+                grid.appendChild(card);
+            });
+        }
+
+        document.querySelectorAll('.nav a').forEach(function(a) {
+            a.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav a').forEach(function(x) { x.classList.remove('active'); });
+                this.classList.add('active');
+                currentCat = this.dataset.cat;
+                showMovies();
+            });
+        });
+
+        showMovies();
+    </script>
 </body>
 </html>
