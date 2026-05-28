@@ -3,89 +3,911 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>电影推荐站</title>
+    <title>光影世界 - 电影推荐站</title>
     <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #3498db;
+            --bg-dark: #0a0a0f;
+            --bg-card: #151520;
+            --bg-hover: #1f1f2e;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --border-color: #2a2a3a;
+        }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; background: #1a1a2e; color: white; }
-        .header { text-align: center; padding: 50px; background: linear-gradient(135deg, #1a1a2e, #16213e); }
-        .site-title { font-size: 2.5rem; margin-bottom: 10px; }
-        .nav { display: flex; justify-content: center; gap: 20px; padding: 20px; background: #16213e; }
-        .nav a { color: white; text-decoration: none; padding: 10px 20px; border-radius: 20px; transition: all 0.3s; }
-        .nav a:hover, .nav a.active { background: #e74c3c; }
-        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .movie-card { background: #0f3460; border-radius: 15px; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
-        .movie-card:hover { transform: translateY(-5px); }
-        .movie-card img { width: 100%; height: 350px; object-fit: cover; }
+        body { font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif; background: var(--bg-dark); color: var(--text-primary); min-height: 100vh; }
+        a { text-decoration: none; color: inherit; }
+        
+        /* Header */
+        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(10, 10, 15, 0.95); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border-color); }
+        .header-content { max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 65px; }
+        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
+        .logo span { color: var(--text-primary); }
+        
+        /* Desktop Navigation */
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        
+        /* Search */
+        .search-box { display: flex; align-items: center; background: var(--bg-card); border-radius: 30px; padding: 8px 15px; border: 1px solid var(--border-color); }
+        .search-box input { background: transparent; border: none; outline: none; color: var(--text-primary); padding: 5px 10px; width: 200px; }
+        .search-box button { background: none; border: none; color: var(--text-secondary); cursor: pointer; }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.5rem; }
+        .mobile-nav { display: none; position: absolute; top: 65px; left: 0; right: 0; background: var(--bg-dark); border-bottom: 1px solid var(--border-color); padding: 20px; }
+        .mobile-nav.active { display: block; }
+        .mobile-nav-links { list-style: none; }
+        .mobile-nav-links li { margin: 15px 0; }
+        .mobile-nav-links a { color: var(--text-secondary); font-size: 1.1rem; }
+        
+        /* Hero Banner */
+        .hero-section { margin-top: 65px; position: relative; height: 500px; overflow: hidden; }
+        .hero-slider { position: relative; height: 100%; }
+        .hero-slide { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 0.5s; }
+        .hero-slide.active { opacity: 1; }
+        .hero-slide::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.9) 100%); }
+        .hero-content { position: relative; z-index: 1; max-width: 1400px; margin: 0 auto; padding: 100px 50px; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
+        .hero-title { font-size: 3rem; margin-bottom: 15px; }
+        .hero-rating { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .rating-star { color: #f39c12; }
+        .hero-desc { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 25px; max-width: 600px; }
+        .hero-buttons { display: flex; gap: 15px; }
+        .btn { padding: 12px 30px; border-radius: 30px; font-weight: 600; transition: all 0.3s; border: none; cursor: pointer; }
+        .btn-primary { background: var(--primary-color); color: white; }
+        .btn-primary:hover { background: #c0392b; transform: scale(1.05); }
+        .btn-secondary { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+        .hero-indicators { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; }
+        .hero-indicator { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); cursor: pointer; transition: all 0.3s; }
+        .hero-indicator.active { background: var(--primary-color); width: 30px; border-radius: 6px; }
+        
+        /* Categories */
+        .categories-section { padding: 40px 20px; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-size: 1.5rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; width: 4px; height: 24px; background: var(--primary-color); border-radius: 2px; }
+        .categories { display: flex; flex-wrap: wrap; gap: 15px; }
+        .category-tag { padding: 10px 25px; background: var(--bg-card); border-radius: 25px; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border-color); }
+        .category-tag:hover, .category-tag.active { background: var(--primary-color); border-color: var(--primary-color); }
+        
+        /* Movies Grid */
+        .movies-section { padding: 20px; max-width: 1400px; margin: 0 auto; }
+        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .movie-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border-color); }
+        .movie-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: var(--primary-color); }
+        .movie-poster { position: relative; aspect-ratio: 2/3; overflow: hidden; }
+        .movie-poster img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .movie-card:hover .movie-poster img { transform: scale(1.1); }
+        .movie-rating-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; }
         .movie-info { padding: 15px; }
-        .movie-title { font-size: 1.2rem; margin-bottom: 5px; }
-        .movie-meta { display: flex; justify-content: space-between; color: #95a5a6; margin-bottom: 10px; }
-        .movie-rating { color: #f39c12; }
-        .footer { text-align: center; padding: 30px; background: #16213e; color: #95a5a6; }
+        .movie-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .movie-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .movie-tag { font-size: 0.8rem; padding: 3px 8px; background: var(--bg-hover); border-radius: 4px; color: var(--text-secondary); }
+        .movie-preview { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+        .movie-card:hover .movie-preview { display: block; }
+        .movie-preview-btn { display: none; margin-top: 10px; padding: 8px 15px; background: var(--primary-color); border-radius: 20px; text-align: center; font-size: 0.9rem; }
+        .movie-card:hover .movie-preview-btn { display: block; }
+        
+        /* Footer */
+        footer { background: var(--bg-card); padding: 40px 20px; margin-top: 50px; border-top: 1px solid var(--border-color); }
+        .footer-content { max-width: 1400px; margin: 0 auto; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-secondary); transition: color 0.3s; }
+        .footer-links a:hover { color: var(--primary-color); }
+        .copyright { color: var(--text-secondary); font-size: 0.9rem; }
+        
+        /* Movie Detail Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 200; overflow-y: auto; }
+        .modal-overlay.active { display: block; }
+        .modal-content { max-width: 1200px; margin: 80px auto; padding: 20px; }
+        .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 2rem; cursor: pointer; transition: color 0.3s; }
+        .close-btn:hover { color: var(--primary-color); }
+        .detail-main { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; margin-bottom: 40px; }
+        .detail-poster { position: relative; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+        .detail-poster img { width: 100%; }
+        .detail-info { display: flex; flex-direction: column; }
+        .detail-title { font-size: 2.5rem; margin-bottom: 15px; }
+        .detail-subtitle { color: var(--text-secondary); margin-bottom: 20px; }
+        .detail-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
+        .meta-item { display: flex; flex-direction: column; }
+        .meta-label { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 5px; }
+        .meta-value { color: var(--text-primary); }
+        .detail-desc { line-height: 1.8; color: var(--text-secondary); margin-bottom: 30px; }
+        .detail-buttons { display: flex; gap: 15px; }
+        
+        /* Stills Gallery */
+        .stills-section { margin-bottom: 40px; }
+        .stills-container { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 15px; scrollbar-width: thin; }
+        .stills-container::-webkit-scrollbar { height: 6px; }
+        .stills-container::-webkit-scrollbar-track { background: var(--bg-card); }
+        .stills-container::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        .still-item { flex-shrink: 0; width: 200px; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
+        .still-item:hover { transform: scale(1.05); }
+        .still-item img { width: 100%; height: 120px; object-fit: cover; }
+        
+        /* Similar Movies */
+        .similar-section { margin-top: 40px; }
+        .similar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+        .similar-card { cursor: pointer; transition: transform 0.3s; }
+        .similar-card:hover { transform: translateY(-5px); }
+        .similar-card img { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 8px; }
+        .similar-card-title { margin-top: 10px; font-size: 0.9rem; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        /* Search Results */
+        .search-results { padding: 100px 20px; max-width: 1400px; margin: 0 auto; }
+        .search-title { font-size: 1.8rem; margin-bottom: 30px; }
+        .search-count { color: var(--text-secondary); }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .search-box input { width: 120px; }
+            .hero-section { height: 400px; }
+            .hero-content { padding: 80px 20px; }
+            .hero-title { font-size: 2rem; }
+            .hero-desc { font-size: 1rem; }
+            .detail-main { grid-template-columns: 1fr; }
+            .detail-title { font-size: 1.8rem; }
+            .detail-meta-grid { grid-template-columns: 1fr; }
+            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+            .similar-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+        }
     </style>
 </head>
 <body>
-    <header class="header">
-        <h1 class="site-title">🎬 电影推荐站</h1>
-        <p>探索光影世界，发现精彩故事</p>
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">🎬 <span>光影世界</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#" class="active" data-page="home">首页</a></li>
+                    <li><a href="#" data-page="category" data-cat="action">动作</a></li>
+                    <li><a href="#" data-page="category" data-cat="comedy">喜剧</a></li>
+                    <li><a href="#" data-page="category" data-cat="scifi">科幻</a></li>
+                    <li><a href="#" data-page="category" data-cat="suspense">悬疑</a></li>
+                    <li><a href="#" data-page="category" data-cat="animation">动画</a></li>
+                </ul>
+            </nav>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="搜索电影、演员、导演...">
+                <button id="searchBtn">🔍</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <ul class="mobile-nav-links">
+                <li><a href="#" data-page="home">首页</a></li>
+                <li><a href="#" data-page="category" data-cat="action">动作</a></li>
+                <li><a href="#" data-page="category" data-cat="comedy">喜剧</a></li>
+                <li><a href="#" data-page="category" data-cat="scifi">科幻</a></li>
+                <li><a href="#" data-page="category" data-cat="suspense">悬疑</a></li>
+                <li><a href="#" data-page="category" data-cat="animation">动画</a></li>
+            </ul>
+        </nav>
     </header>
-    
-    <nav class="nav">
-        <a href="#" class="active" data-cat="all">全部</a>
-        <a href="#" data-cat="popular">热门推荐</a>
-        <a href="#" data-cat="drama">剧情佳作</a>
-        <a href="#" data-cat="animation">动画精选</a>
-        <a href="#" data-cat="fantasy">奇幻冒险</a>
-    </nav>
-    
-    <div class="movies-grid" id="moviesGrid"></div>
-    
-    <footer class="footer">
-        <p>© 2026 电影推荐站</p>
+
+    <!-- Hero Banner -->
+    <section class="hero-section" id="heroSection">
+        <div class="hero-slider" id="heroSlider"></div>
+        <div class="hero-indicators" id="heroIndicators"></div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section">
+        <h2 class="section-title">分类浏览</h2>
+        <div class="categories" id="categories">
+            <span class="category-tag active" data-cat="all">全部</span>
+            <span class="category-tag" data-cat="action">动作</span>
+            <span class="category-tag" data-cat="comedy">喜剧</span>
+            <span class="category-tag" data-cat="scifi">科幻</span>
+            <span class="category-tag" data-cat="suspense">悬疑</span>
+            <span class="category-tag" data-cat="love">爱情</span>
+            <span class="category-tag" data-cat="animation">动画</span>
+            <span class="category-tag" data-cat="documentary">纪录片</span>
+        </div>
+    </section>
+
+    <!-- New Releases -->
+    <section class="movies-section">
+        <h2 class="section-title">新片上线</h2>
+        <div class="movies-grid" id="newReleasesGrid"></div>
+    </section>
+
+    <!-- Top Rated -->
+    <section class="movies-section">
+        <h2 class="section-title">高分推荐</h2>
+        <div class="movies-grid" id="topRatedGrid"></div>
+    </section>
+
+    <!-- All Movies -->
+    <section class="movies-section">
+        <h2 class="section-title">全部影片</h2>
+        <div class="movies-grid" id="allMoviesGrid"></div>
+    </section>
+
+    <!-- Search Results -->
+    <section class="search-results" id="searchResults" style="display: none;">
+        <h2 class="search-title" id="searchTitle">搜索结果</h2>
+        <div class="movies-grid" id="searchGrid"></div>
+    </section>
+
+    <!-- Movie Detail Modal -->
+    <div class="modal-overlay" id="movieModal">
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">联系我们</a>
+                <a href="#">隐私政策</a>
+                <a href="#">使用条款</a>
+            </div>
+            <p class="copyright">© 2024 光影世界 - 探索光影世界，发现精彩故事</p>
+        </div>
     </footer>
 
     <script>
-        var movies = [
-            {id:1,title:"The Shawshank Redemption",year:1994,rating:9.7,cat:"drama",img:"https://picsum.photos/300/450?random=1"},
-            {id:2,title:"Forrest Gump",year:1994,rating:9.5,cat:"drama",img:"https://picsum.photos/300/450?random=2"},
-            {id:3,title:"Interstellar",year:2014,rating:9.4,cat:"popular",img:"https://picsum.photos/300/450?random=3"},
-            {id:4,title:"Inception",year:2010,rating:9.3,cat:"popular",img:"https://picsum.photos/300/450?random=4"},
-            {id:5,title:"Titanic",year:1997,rating:9.4,cat:"popular",img:"https://picsum.photos/300/450?random=5"},
-            {id:6,title:"Spirited Away",year:2001,rating:9.4,cat:"animation",img:"https://picsum.photos/300/450?random=6"},
-            {id:7,title:"Your Name",year:2016,rating:9.1,cat:"animation",img:"https://picsum.photos/300/450?random=7"},
-            {id:8,title:"The Godfather",year:1972,rating:9.4,cat:"drama",img:"https://picsum.photos/300/450?random=8"},
-            {id:9,title:"The Dark Knight",year:2008,rating:9.2,cat:"fantasy",img:"https://picsum.photos/300/450?random=9"},
-            {id:10,title:"Avengers",year:2019,rating:8.5,cat:"fantasy",img:"https://picsum.photos/300/450?random=10"},
-            {id:11,title:"Coco",year:2017,rating:9.1,cat:"animation",img:"https://picsum.photos/300/450?random=11"},
-            {id:12,title:"Parasite",year:2019,rating:8.8,cat:"popular",img:"https://picsum.photos/300/450?random=12"}
+        const movies = [
+            {
+                id: 1,
+                title: "肖申克的救赎",
+                titleEn: "The Shawshank Redemption",
+                rating: 9.7,
+                type: "剧情/犯罪",
+                typeTags: ["drama", "crime"],
+                director: "弗兰克·德拉邦特",
+                actors: "蒂姆·罗宾斯 / 摩根·弗里曼",
+                year: 1994,
+                region: "美国",
+                poster: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/6hZ9aQJ3g59R5f7c6Qx8b2jZ2sD.jpg",
+                    "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+                    "https://image.tmdb.org/t/p/w500/5Z843a5L9x55O9LT5L9iX9Y8I9y.jpg"
+                ],
+                desc: "一场谋杀案使银行家安迪蒙冤入狱，在监狱的岁月里，他结识了瑞德。安迪凭借自己的智慧和毅力，不仅在监狱里建立了图书馆，还帮助狱友们获得知识。最终，安迪用一把小锤子挖出了一条通往自由的隧道，在一个风雨交加的夜晚成功越狱，开始了新的生活。",
+                playUrl: "https://so.iqiyi.com/so/q_肖申克的救赎"
+            },
+            {
+                id: 2,
+                title: "阿甘正传",
+                titleEn: "Forrest Gump",
+                rating: 9.5,
+                type: "剧情/爱情",
+                typeTags: ["drama", "love"],
+                director: "罗伯特·泽米吉斯",
+                actors: "汤姆·汉克斯 / 罗宾·怀特",
+                year: 1994,
+                region: "美国",
+                poster: "https://image.tmdb.org/t/p/w500/sy6DvAu72kjoseZEjocnm2ZZ09i.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/8ZTVqvKDQ8y3i8lgX9PUb5gB8Y7.jpg",
+                    "https://image.tmdb.org/t/p/w500/2L3w3Hf47u5drV4WPq3h0U7Z013.jpg",
+                    "https://image.tmdb.org/t/p/w500/aSd0Uk10FKsNwM3wNt0BCP1hP8H.jpg"
+                ],
+                desc: "阿甘是个智商只有75的低能儿，但他天性善良纯真。他听从妈妈的话，不停地跑，从小学跑到大学，从越南战场跑到总统身边。他参加过越战，打过乒乓球，捕过虾，还创办了自己的公司。阿甘的一生充满了传奇，而他对珍妮的爱始终不渝。",
+                playUrl: "https://so.iqiyi.com/so/q_阿甘正传"
+            },
+            {
+                id: 3,
+                title: "泰坦尼克号",
+                titleEn: "Titanic",
+                rating: 9.4,
+                type: "爱情/灾难",
+                typeTags: ["love", "disaster"],
+                director: "詹姆斯·卡梅隆",
+                actors: "莱昂纳多·迪卡普里奥 / 凯特·温丝莱特",
+                year: 1997,
+                region: "美国",
+                poster: "https://image.tmdb.org/t/p/w500/yDI6D5ZQh67YU4r2gX3mGy30GSt.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg",
+                    "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+                    "https://image.tmdb.org/t/p/w500/6bCplVkhowCjTHXWv49UjRP9pCd.jpg"
+                ],
+                desc: "1912年，豪华游轮泰坦尼克号开始了它的处女航。贫穷画家杰克和富家女露丝在船上相遇并相爱。然而，游轮撞上了冰山，即将沉没。在生死关头，杰克把生存的机会让给了露丝，自己则永远沉入了冰冷的大西洋。",
+                playUrl: "https://so.iqiyi.com/so/q_泰坦尼克号"
+            },
+            {
+                id: 4,
+                title: "盗梦空间",
+                titleEn: "Inception",
+                rating: 9.3,
+                type: "科幻/悬疑",
+                typeTags: ["scifi", "suspense"],
+                director: "克里斯托弗·诺兰",
+                actors: "莱昂纳多·迪卡普里奥 / 约瑟夫·高登-莱维特",
+                year: 2010,
+                region: "美国/英国",
+                poster: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/8cXbitsd8w0i49J3d4JqdQ8XQdV.jpg",
+                    "https://image.tmdb.org/t/p/w500/2U5rm5BQo8Y5gZYu4O4JfL0K85Y.jpg",
+                    "https://image.tmdb.org/t/p/w500/jr9U42Z66vGlUWGgU4X0V9EWbUB.jpg"
+                ],
+                desc: "道姆·柯布是一名专门从事意识深层盗窃的高手。他能够潜入目标的梦境中窃取机密。然而，一次失败的任务让他被迫接受一项看似不可能的任务：在目标的潜意识中植入一个想法，也就是'盗梦'的逆操作——'植梦'。",
+                playUrl: "https://so.iqiyi.com/so/q_盗梦空间"
+            },
+            {
+                id: 5,
+                title: "星际穿越",
+                titleEn: "Interstellar",
+                rating: 9.4,
+                type: "科幻/冒险",
+                typeTags: ["scifi", "adventure"],
+                director: "克里斯托弗·诺兰",
+                actors: "马修·麦康纳 / 安妮·海瑟薇",
+                year: 2014,
+                region: "美国/英国",
+                poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/vz0dMbRmQ4P9D6xC993p6p0TdSd.jpg",
+                    "https://image.tmdb.org/t/p/w500/fX3rhQdX8K84u2fD0jBBa860u46.jpg",
+                    "https://image.tmdb.org/t/p/w500/jXzvmQ4N25kFdL0R6P5kK5X0aX9.jpg"
+                ],
+                desc: "在不远的未来，地球气候已经不适合人类生存。一队探险队员承担起人类历史上最重要的任务：穿越虫洞，寻找人类新的家园。宇航员库珀必须在孩子和人类的未来之间做出选择。",
+                playUrl: "https://so.iqiyi.com/so/q_星际穿越"
+            },
+            {
+                id: 6,
+                title: "楚门的世界",
+                titleEn: "The Truman Show",
+                rating: 9.3,
+                type: "剧情/喜剧",
+                typeTags: ["drama", "comedy"],
+                director: "彼得·威尔",
+                actors: "金·凯瑞 / 劳拉·琳妮",
+                year: 1998,
+                region: "美国",
+                poster: "https://image.tmdb.org/t/p/w500/6V6Vl50GfX6f09bH86p5lnj7dml.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/8I37NtDffNV7AZlDa7uDvvqhovU.jpg",
+                    "https://image.tmdb.org/t/p/w500/9aXeqjN7k6O8J91u4tV5X8V6aW0.jpg",
+                    "https://image.tmdb.org/t/p/w500/a7x3R0S7B06QKX5w0m80H5b8J8V.jpg"
+                ],
+                desc: "楚门·伯班克从出生起就活在一个巨大的摄影棚里，他的一举一动都被直播给全世界观众。直到有一天，他发现了这个巨大的谎言。楚门决定逃离这个虚假的世界，去寻找真正的自由和爱情。",
+                playUrl: "https://so.iqiyi.com/so/q_楚门的世界"
+            },
+            {
+                id: 7,
+                title: "教父",
+                titleEn: "The Godfather",
+                rating: 9.3,
+                type: "犯罪/剧情",
+                typeTags: ["crime", "drama"],
+                director: "弗朗西斯·福特·科波拉",
+                actors: "马龙·白兰度 / 阿尔·帕西诺",
+                year: 1972,
+                region: "美国",
+                poster: "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/54xB28aOU7XUjE4l5QrZQHxH5cV.jpg",
+                    "https://image.tmdb.org/t/p/w500/6m9L9NqZ9s6g805sU9L9U7Z0dW8.jpg",
+                    "https://image.tmdb.org/t/p/w500/2xHQ6mY8eOZ6D9eU4X5N5A5rL3H.jpg"
+                ],
+                desc: "维多·柯里昂是纽约黑手党柯里昂家族的族长，他被称为教父。他的小儿子迈克尔原本不想参与家族事务，但在父亲遇袭后，迈克尔被迫卷入了黑手党世界。他一步步成长为新一代教父，但也付出了沉重的代价。",
+                playUrl: "https://so.iqiyi.com/so/q_教父"
+            },
+            {
+                id: 8,
+                title: "蝙蝠侠：黑暗骑士",
+                titleEn: "The Dark Knight",
+                rating: 9.2,
+                type: "动作/犯罪",
+                typeTags: ["action", "crime"],
+                director: "克里斯托弗·诺兰",
+                actors: "克里斯蒂安·贝尔 / 希斯·莱杰",
+                year: 2008,
+                region: "美国/英国",
+                poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/s7L6033I00Z05B7e5N8k0U5Q7u6.jpg",
+                    "https://image.tmdb.org/t/p/w500/qH59E9dHLdM83o7Kb9GBqU2aU3i.jpg",
+                    "https://image.tmdb.org/t/p/w500/6sCKgYHu27V0mD069i4E3w6N5k3.jpg"
+                ],
+                desc: "蝙蝠侠在哥谭市打击犯罪已经两年了，城市的犯罪率有所下降。然而，一个新的敌人出现了——小丑。他带来了混乱和无政府主义，考验着蝙蝠侠的信念和哥谭市的道德底线。",
+                playUrl: "https://so.iqiyi.com/so/q_蝙蝠侠黑暗骑士"
+            },
+            {
+                id: 9,
+                title: "这个杀手不太冷",
+                titleEn: "Léon: The Professional",
+                rating: 9.4,
+                type: "动作/剧情",
+                typeTags: ["action", "drama"],
+                director: "吕克·贝松",
+                actors: "让·雷诺 / 娜塔莉·波特曼",
+                year: 1994,
+                region: "法国/美国",
+                poster: "https://image.tmdb.org/t/p/w500/4uX5wzZbr88uQLIqT3yK6z0JFmH.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/9aXeqjN7k6O8J91u4tV5X8V6aW0.jpg",
+                    "https://image.tmdb.org/t/p/w500/6m9L9NqZ9s6g805sU9L9U7Z0dW8.jpg",
+                    "https://image.tmdb.org/t/p/w500/8I37NtDffNV7AZlDa7uDvvqhovU.jpg"
+                ],
+                desc: "莱昂是一名职业杀手，独自一人生活。一天，邻居家的小女孩玛蒂尔达因为全家被杀害而逃到莱昂家。莱昂收留了她，并教她成为一名杀手。两人之间产生了深厚的感情，但这份感情却注定以悲剧收场。",
+                playUrl: "https://so.iqiyi.com/so/q_这个杀手不太冷"
+            },
+            {
+                id: 10,
+                title: "千与千寻",
+                titleEn: "Spirited Away",
+                rating: 9.4,
+                type: "动画/奇幻",
+                typeTags: ["animation", "fantasy"],
+                director: "宫崎骏",
+                actors: "柊瑠美 / 入野自由",
+                year: 2001,
+                region: "日本",
+                poster: "https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/o78bXH2q5sqqQ6yY5a680T6T6L9.jpg",
+                    "https://image.tmdb.org/t/p/w500/53K5S5G5EV7mW8K3N5M7N7Y5L8V.jpg",
+                    "https://image.tmdb.org/t/p/w500/4wZ1Q5J5E7Q6M7L8N9O0P1Q2R3.jpg"
+                ],
+                desc: "千寻和爸爸妈妈一起驱车前往新家，在郊外的小路上不慎进入了神秘的隧道。他们来到了一个奇异的世界，爸爸妈妈因为贪吃变成了猪。千寻必须在汤屋工作来拯救父母，在这个过程中她经历了成长和冒险。",
+                playUrl: "https://so.iqiyi.com/so/q_千与千寻"
+            },
+            {
+                id: 11,
+                title: "寻梦环游记",
+                titleEn: "Coco",
+                rating: 9.1,
+                type: "动画/冒险",
+                typeTags: ["animation", "adventure"],
+                director: "李·昂克里奇",
+                actors: "安东尼·冈萨雷斯 / 盖尔·加西亚·贝纳尔",
+                year: 2017,
+                region: "美国",
+                poster: "https://image.tmdb.org/t/p/w500/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/8aXmQa60wKTJlG8e06K7X67M2W1.jpg",
+                    "https://image.tmdb.org/t/p/w500/5Z843a5L9x55O9LT5L9iX9Y8I9y.jpg",
+                    "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
+                ],
+                desc: "热爱音乐的米格尔不幸地出生在一个痛恨音乐的家庭里。在亡灵节那天，他意外进入了亡灵世界。在那里，他找到了自己的曾曾祖父，并发现了家族的秘密。最终，米格尔帮助家人解开了多年的心结。",
+                playUrl: "https://so.iqiyi.com/so/q_寻梦环游记"
+            },
+            {
+                id: 12,
+                title: "疯狂动物城",
+                titleEn: "Zootopia",
+                rating: 9.2,
+                type: "动画/喜剧",
+                typeTags: ["animation", "comedy"],
+                director: "拜恩·霍华德 / 瑞奇·摩尔",
+                actors: "金妮弗·古德温 / 杰森·贝特曼",
+                year: 2016,
+                region: "美国",
+                poster: "https://image.tmdb.org/t/p/w500/sM33SANp9z6rXW8Itn7NnG1GOEs.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg",
+                    "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+                    "https://image.tmdb.org/t/p/w500/6bCplVkhowCjTHXWv49UjRP9pCd.jpg"
+                ],
+                desc: "兔子朱迪从小就梦想成为一名警察。尽管面临质疑和挑战，她还是成功加入了动物城警察局。在调查一起失踪案的过程中，她与狐狸尼克成为搭档，共同揭开了一个巨大的阴谋，证明了任何人都可以实现自己的梦想。",
+                playUrl: "https://so.iqiyi.com/so/q_疯狂动物城"
+            },
+            {
+                id: 13,
+                title: "流浪地球",
+                titleEn: "The Wandering Earth",
+                rating: 9.2,
+                type: "科幻/灾难",
+                typeTags: ["scifi", "disaster"],
+                director: "郭帆",
+                actors: "吴京 / 屈楚萧",
+                year: 2019,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/xBCPdG59uU83r3Lvh9F3hLgW9lJ.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/vz0dMbRmQ4P9D6xC993p6p0TdSd.jpg",
+                    "https://image.tmdb.org/t/p/w500/fX3rhQdX8K84u2fD0jBBa860u46.jpg",
+                    "https://image.tmdb.org/t/p/w500/jXzvmQ4N25kFdL0R6P5kK5X0aX9.jpg"
+                ],
+                desc: "在不远的未来，太阳即将毁灭。为了拯救人类，地球联合政府启动了流浪地球计划：在地球表面建造巨大的推进器，将地球推离太阳系，寻找新的家园。刘启和他的妹妹韩朵朵以及救援队一起，为了点燃木星拯救地球而展开了一场惊心动魄的冒险。",
+                playUrl: "https://so.iqiyi.com/so/q_流浪地球"
+            },
+            {
+                id: 14,
+                title: "战狼2",
+                titleEn: "Wolf Warrior 2",
+                rating: 9.0,
+                type: "动作/战争",
+                typeTags: ["action", "war"],
+                director: "吴京",
+                actors: "吴京 / 弗兰克·格里罗",
+                year: 2017,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/m2z9cM9eH0n5kfC1vV5X8Q7N8aZ.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/s7L6033I00Z05B7e5N8k0U5Q7u6.jpg",
+                    "https://image.tmdb.org/t/p/w500/qH59E9dHLdM83o7Kb9GBqU2aU3i.jpg",
+                    "https://image.tmdb.org/t/p/w500/6sCKgYHu27V0mD069i4E3w6N5k3.jpg"
+                ],
+                desc: "冷锋在非洲卷入了一场叛乱。他必须保护中国公民和非洲难民撤离危险区域。在这个过程中，他发现了一个巨大的阴谋，并与恐怖分子展开了殊死搏斗。冷锋用行动证明了中国军人的勇气和担当。",
+                playUrl: "https://so.iqiyi.com/so/q_战狼2"
+            },
+            {
+                id: 15,
+                title: "我不是药神",
+                titleEn: "Dying to Survive",
+                rating: 9.0,
+                type: "剧情/现实",
+                typeTags: ["drama", "reality"],
+                director: "文牧野",
+                actors: "徐峥 / 王传君",
+                year: 2018,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/3Q94H7V9zxR494FSS6JcRMEW1lL.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/54xB28aOU7XUjE4l5QrZQHxH5cV.jpg",
+                    "https://image.tmdb.org/t/p/w500/6m9L9NqZ9s6g805sU9L9U7Z0dW8.jpg",
+                    "https://image.tmdb.org/t/p/w500/2xHQ6mY8eOZ6D9eU4X5N5A5rL3H.jpg"
+                ],
+                desc: "程勇是一个卖保健品的小商贩。在一位白血病患者的请求下，他开始从印度走私低价的仿制药。随着越来越多的患者依赖他，程勇面临着巨大的道德和法律压力。这部电影真实地反映了中国社会中普通人的困境和人性的光辉。",
+                playUrl: "https://so.iqiyi.com/so/q_我不是药神"
+            },
+            {
+                id: 16,
+                title: "哪吒之魔童降世",
+                titleEn: "Ne Zha",
+                rating: 8.9,
+                type: "动画/奇幻",
+                typeTags: ["animation", "fantasy"],
+                director: "饺子",
+                actors: "吕艳婷 / 囧森瑟夫",
+                year: 2019,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/h4VB6m0RwcicVEZvzftYZyKX80b.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/o78bXH2q5sqqQ6yY5a680T6T6L9.jpg",
+                    "https://image.tmdb.org/t/p/w500/53K5S5G5EV7mW8K3N5M7N7Y5L8V.jpg",
+                    "https://image.tmdb.org/t/p/w500/4wZ1Q5J5E7Q6M7L8N9O0P1Q2R3.jpg"
+                ],
+                desc: "哪吒是魔丸转世，天生具有强大的魔力，但也因此被世人误解和恐惧。在父母的关爱和师父的教导下，哪吒逐渐成长。最终，他选择对抗命运，证明了'我命由我不由天'的信念。",
+                playUrl: "https://so.iqiyi.com/so/q_哪吒之魔童降世"
+            },
+            {
+                id: 17,
+                title: "唐人街探案",
+                titleEn: "Detective Chinatown",
+                rating: 8.6,
+                type: "喜剧/悬疑",
+                typeTags: ["comedy", "suspense"],
+                director: "陈思诚",
+                actors: "王宝强 / 刘昊然",
+                year: 2015,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/8bHLd8g6DwwQz0mD1sB9Y7y4o4E.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/8aXmQa60wKTJlG8e06K7X67M2W1.jpg",
+                    "https://image.tmdb.org/t/p/w500/5Z843a5L9x55O9LT5L9iX9Y8I9y.jpg",
+                    "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
+                ],
+                desc: "秦风考警校失败后，去泰国找表舅唐仁散心。没想到唐仁卷入了一桩谋杀案和黄金失窃案。两人被迫在三天内破案，过程中笑料百出，最终揭开了一个出人意料的真相。",
+                playUrl: "https://so.iqiyi.com/so/q_唐人街探案"
+            },
+            {
+                id: 18,
+                title: "你好，李焕英",
+                titleEn: "Hi, Mom",
+                rating: 9.0,
+                type: "喜剧/亲情",
+                typeTags: ["comedy", "family"],
+                director: "贾玲",
+                actors: "贾玲 / 张小斐",
+                year: 2021,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/200Xf9o7gybYys8i5K6G38a94kR.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg",
+                    "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+                    "https://image.tmdb.org/t/p/w500/6bCplVkhowCjTHXWv49UjRP9pCd.jpg"
+                ],
+                desc: "贾晓玲在母亲李焕英意外去世后，悲痛万分。她穿越回了1981年，遇到了年轻时候的母亲。贾晓玲决定帮助母亲找到更好的人生，但在这个过程中，她发现了一个令人泪目的秘密。",
+                playUrl: "https://so.iqiyi.com/so/q_你好李焕英"
+            },
+            {
+                id: 19,
+                title: "误杀",
+                titleEn: "Sheep Without a Shepherd",
+                rating: 8.7,
+                type: "悬疑/犯罪",
+                typeTags: ["suspense", "crime"],
+                director: "柯汶利",
+                actors: "肖央 / 谭卓",
+                year: 2019,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/6D3dK1O9STqHkOv14W41b2Ux6lx.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/vz0dMbRmQ4P9D6xC993p6p0TdSd.jpg",
+                    "https://image.tmdb.org/t/p/w500/fX3rhQdX8K84u2fD0jBBa860u46.jpg",
+                    "https://image.tmdb.org/t/p/w500/jXzvmQ4N25kFdL0R6P5kK5X0aX9.jpg"
+                ],
+                desc: "李维杰是一个热爱电影的普通父亲。他的女儿在一次意外中失手杀死了警察局长的儿子。为了保护家人，李维杰利用从电影中学到的知识，精心策划了一场完美的瞒天过海之计。",
+                playUrl: "https://so.iqiyi.com/so/q_误杀"
+            },
+            {
+                id: 20,
+                title: "少年的你",
+                titleEn: "Better Days",
+                rating: 8.7,
+                type: "剧情/校园",
+                typeTags: ["drama", "school"],
+                director: "曾国祥",
+                actors: "周冬雨 / 易烊千玺",
+                year: 2019,
+                region: "中国",
+                poster: "https://image.tmdb.org/t/p/w500/qLmdKa1KO5h70dWRME7dC96x5bS.jpg",
+                stills: [
+                    "https://image.tmdb.org/t/p/w500/s7L6033I00Z05B7e5N8k0U5Q7u6.jpg",
+                    "https://image.tmdb.org/t/p/w500/qH59E9dHLdM83o7Kb9GBqU2aU3i.jpg",
+                    "https://image.tmdb.org/t/p/w500/6sCKgYHu27V0mD069i4E3w6N5k3.jpg"
+                ],
+                desc: "陈念是一名即将参加高考的高中生，却遭遇了校园霸凌。在最黑暗的时刻，她遇到了小北——一个街头少年。两人互相扶持，共同面对生活的挑战。这部电影深刻地探讨了校园霸凌问题和青少年的成长。",
+                playUrl: "https://so.iqiyi.com/so/q_少年的你"
+            }
         ];
 
-        var currentCat = 'all';
+        const categoryMap = {
+            'all': '全部',
+            'action': '动作',
+            'comedy': '喜剧',
+            'scifi': '科幻',
+            'suspense': '悬疑',
+            'love': '爱情',
+            'animation': '动画',
+            'documentary': '纪录片',
+            'drama': '剧情',
+            'crime': '犯罪',
+            'adventure': '冒险',
+            'fantasy': '奇幻',
+            'disaster': '灾难',
+            'war': '战争',
+            'reality': '现实',
+            'family': '亲情',
+            'school': '校园'
+        };
 
-        function showMovies() {
-            var grid = document.getElementById('moviesGrid');
-            grid.innerHTML = '';
-            var filtered = movies.filter(function(m) {
-                return currentCat === 'all' || m.cat === currentCat;
+        function initHeroSlider() {
+            const slider = document.getElementById('heroSlider');
+            const indicators = document.getElementById('heroIndicators');
+            const topMovies = [...movies].sort((a,b) => b.rating - a.rating).slice(0, 5);
+            
+            topMovies.forEach((movie, index) => {
+                const slide = document.createElement('div');
+                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
+                slide.style.backgroundImage = `url(${movie.poster})`;
+                slide.innerHTML = `
+                    <div class="hero-content">
+                        <div class="hero-rating">
+                            <span class="rating-star">⭐</span>
+                            <span>${movie.rating}</span>
+                        </div>
+                        <h1 class="hero-title">${movie.title}</h1>
+                        <p class="hero-desc">${movie.desc.slice(0, 100)}...</p>
+                        <div class="hero-buttons">
+                            <button class="btn btn-primary" onclick="playMovie('${movie.playUrl}')">立即播放</button>
+                            <button class="btn btn-secondary" onclick="showMovieDetail(${movie.id})">查看详情</button>
+                        </div>
+                    </div>
+                `;
+                slider.appendChild(slide);
+                
+                const indicator = document.createElement('div');
+                indicator.className = `hero-indicator ${index === 0 ? 'active' : ''}`;
+                indicator.addEventListener('click', () => setSlide(index));
+                indicators.appendChild(indicator);
             });
-            filtered.forEach(function(m) {
-                var card = document.createElement('div');
-                card.className = 'movie-card';
-                card.innerHTML = '<img src="'+m.img+'" alt="'+m.title+'"><div class="movie-info"><h3 class="movie-title">'+m.title+'</h3><div class="movie-meta"><span>'+m.year+'</span><span class="movie-rating">⭐ '+m.rating+'</span></div></div>';
-                grid.appendChild(card);
+            
+            let currentSlide = 0;
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % topMovies.length;
+                setSlide(currentSlide);
+            }, 5000);
+            
+            function setSlide(index) {
+                document.querySelectorAll('.hero-slide').forEach((s, i) => s.classList.toggle('active', i === index));
+                document.querySelectorAll('.hero-indicator').forEach((i, idx) => i.classList.toggle('active', idx === index));
+                currentSlide = index;
+            }
+        }
+
+        function renderMovieCard(movie) {
+            return `
+                <div class="movie-card" onclick="showMovieDetail(${movie.id})">
+                    <div class="movie-poster">
+                        <img src="${movie.poster}" alt="${movie.title}" loading="lazy">
+                        <div class="movie-rating-badge">⭐ ${movie.rating}</div>
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">${movie.title}</h3>
+                        <div class="movie-meta">
+                            <span class="movie-tag">${movie.type}</span>
+                            <span class="movie-tag">${movie.year}</span>
+                        </div>
+                        <p class="movie-preview">${movie.desc.slice(0, 80)}...</p>
+                        <div class="movie-preview-btn" onclick="event.stopPropagation(); playMovie('${movie.playUrl}')">▶ 立即播放</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderSections() {
+            const newReleases = [...movies].sort((a,b) => b.year - a.year).slice(0, 6);
+            document.getElementById('newReleasesGrid').innerHTML = newReleases.map(renderMovieCard).join('');
+            
+            const topRated = [...movies].sort((a,b) => b.rating - a.rating).slice(0, 6);
+            document.getElementById('topRatedGrid').innerHTML = topRated.map(renderMovieCard).join('');
+            
+            document.getElementById('allMoviesGrid').innerHTML = movies.map(renderMovieCard).join('');
+        }
+
+        function showMovieDetail(movieId) {
+            const movie = movies.find(m => m.id === movieId);
+            if (!movie) return;
+            
+            const similarMovies = movies.filter(m => 
+                m.id !== movieId && 
+                m.typeTags.some(tag => movie.typeTags.includes(tag))
+            ).slice(0, 6);
+            
+            const modal = document.getElementById('movieModal');
+            const content = document.getElementById('modalContent');
+            
+            content.innerHTML = `
+                <div class="modal-header">
+                    <h1 class="detail-title">${movie.title}</h1>
+                    <button class="close-btn" onclick="closeModal()">×</button>
+                </div>
+                <div class="detail-main">
+                    <div class="detail-poster">
+                        <img src="${movie.poster}" alt="${movie.title}">
+                    </div>
+                    <div class="detail-info">
+                        <p class="detail-subtitle">${movie.titleEn} | ⭐ ${movie.rating}分</p>
+                        <div class="detail-meta-grid">
+                            <div class="meta-item"><span class="meta-label">类型</span><span class="meta-value">${movie.type}</span></div>
+                            <div class="meta-item"><span class="meta-label">导演</span><span class="meta-value">${movie.director}</span></div>
+                            <div class="meta-item"><span class="meta-label">主演</span><span class="meta-value">${movie.actors}</span></div>
+                            <div class="meta-item"><span class="meta-label">上映时间</span><span class="meta-value">${movie.year}</span></div>
+                            <div class="meta-item"><span class="meta-label">地区</span><span class="meta-value">${movie.region}</span></div>
+                            <div class="meta-item"><span class="meta-label">评分</span><span class="meta-value">⭐ ${movie.rating}</span></div>
+                        </div>
+                        <p class="detail-desc">${movie.desc}</p>
+                        <div class="detail-buttons">
+                            <button class="btn btn-primary" onclick="playMovie('${movie.playUrl}')">▶ 立即播放</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="stills-section">
+                    <h3 class="section-title">精彩剧照</h3>
+                    <div class="stills-container">
+                        ${movie.stills.map((still, idx) => `<div class="still-item"><img src="${still}" alt="剧照${idx+1}"></div>`).join('')}
+                    </div>
+                </div>
+                <div class="similar-section">
+                    <h3 class="section-title">同类型推荐</h3>
+                    <div class="similar-grid">
+                        ${similarMovies.map(m => `<div class="similar-card" onclick="showMovieDetail(${m.id})"><img src="${m.poster}" alt="${m.title}"><p class="similar-card-title">${m.title}</p></div>`).join('')}
+                    </div>
+                </div>
+            `;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('movieModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function playMovie(url) {
+            window.open(url, '_blank');
+        }
+
+        function filterByCategory(category) {
+            document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
+            document.querySelector(`[data-cat="${category}"]`).classList.add('active');
+            
+            const allSections = ['heroSection', 'categories', 'newReleasesGrid', 'topRatedGrid', 'allMoviesGrid'];
+            const searchSection = document.getElementById('searchResults');
+            
+            allSections.forEach(id => document.getElementById(id).style.display = '');
+            searchSection.style.display = 'none';
+            
+            if (category === 'all') {
+                renderSections();
+            } else {
+                const filtered = movies.filter(m => m.typeTags.includes(category) || m.type.includes(categoryMap[category]));
+                
+                document.getElementById('newReleasesGrid').innerHTML = filtered.slice(0, 6).map(renderMovieCard).join('');
+                document.getElementById('topRatedGrid').innerHTML = [...filtered].sort((a,b) => b.rating - a.rating).slice(0, 6).map(renderMovieCard).join('');
+                document.getElementById('allMoviesGrid').innerHTML = filtered.map(renderMovieCard).join('');
+            }
+        }
+
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (!query) {
+                    filterByCategory('all');
+                    return;
+                }
+                
+                const results = movies.filter(m => 
+                    m.title.includes(query) || 
+                    m.actors.includes(query) || 
+                    m.director.includes(query)
+                );
+                
+                document.getElementById('searchTitle').innerHTML = `搜索结果："${query}" <span class="search-count">(${results.length}部影片)</span>`;
+                document.getElementById('searchGrid').innerHTML = results.map(renderMovieCard).join('');
+                
+                document.querySelectorAll('.hero-section, .categories-section, .movies-section').forEach(s => s.style.display = 'none');
+                document.getElementById('searchResults').style.display = 'block';
+            }
+            
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') performSearch();
             });
         }
 
-        document.querySelectorAll('.nav a').forEach(function(a) {
-            a.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.nav a').forEach(function(x) { x.classList.remove('active'); });
-                this.classList.add('active');
-                currentCat = this.dataset.cat;
-                showMovies();
+        function initNav() {
+            document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const page = link.dataset.page;
+                    const cat = link.dataset.cat;
+                    
+                    if (page === 'home') {
+                        filterByCategory('all');
+                    } else if (cat) {
+                        filterByCategory(cat);
+                    }
+                    
+                    document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                    
+                    document.getElementById('mobileNav').classList.remove('active');
+                });
+            });
+            
+            document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+                document.getElementById('mobileNav').classList.toggle('active');
+            });
+            
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.addEventListener('click', () => {
+                    filterByCategory(tag.dataset.cat);
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initHeroSlider();
+            renderSections();
+            initSearch();
+            initNav();
+            
+            document.getElementById('movieModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('movieModal')) {
+                    closeModal();
+                }
             });
         });
-
-        showMovies();
     </script>
 </body>
 </html>
