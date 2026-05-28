@@ -8,8 +8,8 @@ const movies = [
         actors: "蒂姆·罗宾斯 / 摩根·弗里曼",
         category: "drama",
         description: "希望是美好的事物，也许是最美好的，而美好的事物永不消逝。",
-        detail: "导演：弗兰克·德拉邦特\n主演：蒂姆·罗宾斯 / 摩根·弗里曼\n\n20世纪40年代末，小有成就的青年银行家安迪因涉嫌杀害妻子及其情人而锒铛入狱。在这座名为肖申克的监狱内，希望似乎虚无缥缈，终身监禁的惩罚无疑注定了安迪接下来灰暗绝望的人生。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Shawshank%20Redemption%20movie%20poster%20prison%20hope%20freedom&image_size=portrait_4_3",
+        detail: "导演：弗兰克·德拉邦特\n主演：蒂姆·罗宾斯 / 摩根·弗里曼\n\n20世纪40年代末，小有成就的青年银行家安迪因涉嫌杀害妻子及其情人而锒铛入狱。",
+        posterUrl: "https://picsum.photos/300/450?random=1",
         videoUrl: "https://www.youtube.com/embed/6hB3S9bIaco"
     },
     {
@@ -21,8 +21,8 @@ const movies = [
         actors: "连姆·尼森 / 本·金斯利",
         category: "drama",
         description: "在黑暗中闪耀的人性光辉，一段不可磨灭的历史记忆。",
-        detail: "导演：史蒂文·斯皮尔伯格\n主演：连姆·尼森 / 本·金斯利\n\n1939年，波兰在纳粹德国的统治下，党卫军对犹太人进行了隔离统治。德国商人奥斯卡·辛德勒来到德军统治下的克拉科夫，开设了一间搪瓷厂。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Schindlers%20List%20movie%20poster%20Holocaust%20drama%20black%20and%20white&image_size=portrait_4_3",
+        detail: "导演：史蒂文·斯皮尔伯格\n主演：连姆·尼森 / 本·金斯利\n\n1939年，波兰在纳粹德国的统治下，党卫军对犹太人进行了隔离统治。",
+        posterUrl: "https://picsum.photos/300/450?random=2",
         videoUrl: "https://www.youtube.com/embed/ttGP8w12340"
     },
     {
@@ -34,8 +34,8 @@ const movies = [
         actors: "汤姆·汉克斯 / 罗宾·怀特",
         category: "drama",
         description: "人生就像一盒巧克力，你永远不知道下一颗是什么味道。",
-        detail: "导演：罗伯特·泽米吉斯\n主演：汤姆·汉克斯 / 罗宾·怀特\n\n阿甘是个智商只有75的低能儿。在学校里为了躲避别的孩子的欺侮，听从一个朋友珍妮的话而开始跑。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Forrest%20Gump%20movie%20poster%20running%20man%20American%20dream&image_size=portrait_4_3",
+        detail: "导演：罗伯特·泽米吉斯\n主演：汤姆·汉克斯 / 罗宾·怀特\n\n阿甘是个智商只有75的低能儿，在学校里为了躲避别的孩子的欺侮而开始跑。",
+        posterUrl: "https://picsum.photos/300/450?random=3",
         videoUrl: "https://www.youtube.com/embed/bLvqoHBptjg"
     },
     {
@@ -47,8 +47,8 @@ const movies = [
         actors: "柊瑠美 / 入野自由",
         category: "animation",
         description: "宫崎骏的奇幻世界，关于成长与勇气的永恒寓言。",
-        detail: "导演：宫崎骏\n配音：柊瑠美 / 入野自由\n\n千寻和爸爸妈妈一起驱车前往新家，在郊外的小路上不慎进入了神秘的隧道——他们去到了另外一个诡异世界。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Spirited%20Away%20anime%20movie%20poster%20Japanese%20fantasy%20bath%20house&image_size=portrait_4_3",
+        detail: "导演：宫崎骏\n配音：柊瑠美 / 入野自由\n\n千寻和爸爸妈妈一起驱车前往新家，不慎进入了神秘的隧道。",
+        posterUrl: "https://picsum.photos/300/450?random=4",
         videoUrl: "https://www.youtube.com/embed/ByXuk9QqQkk"
     },
     {
@@ -60,8 +60,8 @@ const movies = [
         actors: "马修·麦康纳 / 安妮·海瑟薇",
         category: "popular",
         description: "穿越虫洞，跨越时空，为人类寻找新家园的壮丽史诗。",
-        detail: "导演：克里斯托弗·诺兰\n主演：马修·麦康纳 / 安妮·海瑟薇\n\n在不远的未来，地球气候已经不适合人类生存。一队探险队员承担起人类历史上最重要的任务。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Interstellar%20movie%20poster%20space%20black%20hole%20astronaut&image_size=portrait_4_3",
+        detail: "导演：克里斯托弗·诺兰\n主演：马修·麦康纳 / 安妮·海瑟薇\n\n在不远的未来，地球气候已经不适合人类生存。",
+        posterUrl: "https://picsum.photos/300/450?random=5",
         videoUrl: "https://www.youtube.com/embed/zSWdZVtXT7E"
     },
     {
@@ -70,11 +70,11 @@ const movies = [
         year: 2010,
         rating: 9.3,
         director: "克里斯托弗·诺兰",
-        actors: "莱昂纳多·迪卡普里奥 / 约瑟夫·高登-莱维特",
+        actors: "莱昂纳多·迪卡普里奥",
         category: "popular",
         description: "在梦境与现实之间穿梭，一场关于意识与潜意识的终极探索。",
-        detail: "导演：克里斯托弗·诺兰\n主演：莱昂纳多·迪卡普里奥 / 约瑟夫·高登-莱维特\n\n道姆·柯布是一名专门从事意识深层盗窃的高手，他能够潜入目标的梦境中窃取机密。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Inception%20movie%20poster%20dream%20city%20folding%20surreal&image_size=portrait_4_3",
+        detail: "导演：克里斯托弗·诺兰\n主演：莱昂纳多·迪卡普里奥\n\n道姆·柯布是一名专门从事意识深层盗窃的高手。",
+        posterUrl: "https://picsum.photos/300/450?random=6",
         videoUrl: "https://www.youtube.com/embed/8hP9D6kZseM"
     },
     {
@@ -86,8 +86,8 @@ const movies = [
         actors: "莱昂纳多·迪卡普里奥 / 凯特·温丝莱特",
         category: "popular",
         description: "跨越生死的旷世爱恋，经典永不落幕。",
-        detail: "导演：詹姆斯·卡梅隆\n主演：莱昂纳多·迪卡普里奥 / 凯特·温丝莱特\n\n1912年4月10日，被誉为世界工业史上的奇迹的豪华客轮泰坦尼克号开始了它的处女航。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Titanic%20movie%20poster%20ship%20ocean%20romance%20disaster&image_size=portrait_4_3",
+        detail: "导演：詹姆斯·卡梅隆\n主演：莱昂纳多·迪卡普里奥 / 凯特·温丝莱特\n\n1912年，豪华客轮泰坦尼克号开始了它的处女航。",
+        posterUrl: "https://picsum.photos/300/450?random=7",
         videoUrl: "https://www.youtube.com/embed/kVrqfYjkTdQ"
     },
     {
@@ -99,8 +99,8 @@ const movies = [
         actors: "本·贝尔特 / 艾丽莎·奈特",
         category: "animation",
         description: "末日星球上，两个机器人的纯粹爱恋与冒险。",
-        detail: "导演：安德鲁·斯坦顿\n配音：本·贝尔特 / 艾丽莎·奈特\n\n公元2805年，地球已经被垃圾覆盖，人类已经移居到太空船公理号上生活。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Wall%20E%20animated%20movie%20poster%20robot%20love%20space&image_size=portrait_4_3",
+        detail: "导演：安德鲁·斯坦顿\n配音：本·贝尔特 / 艾丽莎·奈特\n\n公元2805年，地球已经被垃圾覆盖。",
+        posterUrl: "https://picsum.photos/300/450?random=8",
         videoUrl: "https://www.youtube.com/embed/CZ1CATNbXg0"
     },
     {
@@ -109,11 +109,11 @@ const movies = [
         year: 2017,
         rating: 9.1,
         director: "李·昂克里奇",
-        actors: "安东尼·冈萨雷斯 / 盖尔·加西亚·贝纳尔",
+        actors: "安东尼·冈萨雷斯",
         category: "animation",
         description: "在亡灵世界寻找记忆与亲情，温暖人心的动画经典。",
-        detail: "导演：李·昂克里奇\n配音：安东尼·冈萨雷斯 / 盖尔·加西亚·贝纳尔\n\n热爱音乐的米格尔不幸地出生在一个痛恨音乐的家庭里。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Coco%20animated%20movie%20poster%20Day%20of%20the%20Dead%20skeleton&image_size=portrait_4_3",
+        detail: "导演：李·昂克里奇\n配音：安东尼·冈萨雷斯\n\n热爱音乐的米格尔不幸地出生在一个痛恨音乐的家庭里。",
+        posterUrl: "https://picsum.photos/300/450?random=9",
         videoUrl: "https://www.youtube.com/embed/5ZlNB9G17q0"
     },
     {
@@ -126,7 +126,7 @@ const movies = [
         category: "animation",
         description: "跨越时空的命运之恋，新海诚的视觉盛宴。",
         detail: "导演：新海诚\n配音：神木隆之介 / 上白石萌音\n\n住在乡下小镇的三叶和住在东京的泷，突然开始交换身体。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Your%20Name%20anime%20movie%20poster%20comet%20love%20story&image_size=portrait_4_3",
+        posterUrl: "https://picsum.photos/300/450?random=10",
         videoUrl: "https://www.youtube.com/embed/xUiy9VvR2Pk"
     },
     {
@@ -135,11 +135,11 @@ const movies = [
         year: 2019,
         rating: 8.8,
         director: "托德·菲利普斯",
-        actors: "华金·菲尼克斯 / 罗伯特·德尼罗",
+        actors: "华金·菲尼克斯",
         category: "drama",
         description: "被生活逼入绝境的普通人，一步步走向黑暗。",
-        detail: "导演：托德·菲利普斯\n主演：华金·菲尼克斯 / 罗伯特·德尼罗\n\n亚瑟·弗莱克是一个患有精神疾病的喜剧演员，他梦想成为一名脱口秀演员。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Joker%20movie%20poster%20clown%20dark%20psychological%20thriller&image_size=portrait_4_3",
+        detail: "导演：托德·菲利普斯\n主演：华金·菲尼克斯\n\n亚瑟·弗莱克是一个患有精神疾病的喜剧演员。",
+        posterUrl: "https://picsum.photos/300/450?random=11",
         videoUrl: "https://www.youtube.com/embed/zAGVQLHvwOY"
     },
     {
@@ -151,8 +151,8 @@ const movies = [
         actors: "宋康昊 / 李善均",
         category: "popular",
         description: "贫富差距下的黑色寓言，奥斯卡最佳影片的震撼之作。",
-        detail: "导演：奉俊昊\n主演：宋康昊 / 李善均\n\n基宇一家住在半地下室里，靠折叠披萨盒为生。一次偶然的机会，基宇的朋友将他介绍到一个富裕家庭担任家教。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Parasite%20movie%20poster%20Korean%20thriller%20social%20commentary&image_size=portrait_4_3",
+        detail: "导演：奉俊昊\n主演：宋康昊 / 李善均\n\n基宇一家住在半地下室里，靠折叠披萨盒为生。",
+        posterUrl: "https://picsum.photos/300/450?random=12",
         videoUrl: "https://www.youtube.com/embed/5xH0HfODajM"
     },
     {
@@ -164,8 +164,8 @@ const movies = [
         actors: "汤姆·哈迪 / 查理兹·塞隆",
         category: "fantasy",
         description: "末日荒野中的狂飙之旅，全程高能的动作大片。",
-        detail: "导演：乔治·米勒\n主演：汤姆·哈迪 / 查理兹·塞隆\n\n在末日废土世界，麦克斯是一个沉默寡言的流浪者。他被军阀不死乔的手下抓获。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Mad%20Max%20Fury%20Road%20movie%20poster%20post%20apocalyptic%20desert&image_size=portrait_4_3",
+        detail: "导演：乔治·米勒\n主演：汤姆·哈迪 / 查理兹·塞隆\n\n在末日废土世界，麦克斯是一个沉默寡言的流浪者。",
+        posterUrl: "https://picsum.photos/300/450?random=13",
         videoUrl: "https://www.youtube.com/embed/hEJnMQG9ev8"
     },
     {
@@ -177,8 +177,8 @@ const movies = [
         actors: "菲恩·怀特海德 / 汤姆·哈迪",
         category: "popular",
         description: "二战经典撤退战役，海陆空三线交织的求生故事。",
-        detail: "导演：克里斯托弗·诺兰\n主演：菲恩·怀特海德 / 汤姆·哈迪\n\n1940年，二战初期，40万英法联军被德军围困在敦刻尔克海滩上。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Dunkirk%20movie%20poster%20war%20beach%20military%20rescue&image_size=portrait_4_3",
+        detail: "导演：克里斯托弗·诺兰\n主演：菲恩·怀特海德 / 汤姆·哈迪\n\n1940年，40万英法联军被德军围困在敦刻尔克海滩上。",
+        posterUrl: "https://picsum.photos/300/450?random=14",
         videoUrl: "https://www.youtube.com/embed/DKeaonKujrM"
     },
     {
@@ -190,8 +190,8 @@ const movies = [
         actors: "马龙·白兰度 / 阿尔·帕西诺",
         category: "drama",
         description: "黑帮史诗，诠释家族、权力与人性的经典之作。",
-        detail: "导演：弗朗西斯·福特·科波拉\n主演：马龙·白兰度 / 阿尔·帕西诺\n\n维多·柯里昂是纽约黑手党柯里昂家族的族长，他被称为教父。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=The%20Godfather%20movie%20poster%20mafia%20dark%20suit%20power&image_size=portrait_4_3",
+        detail: "导演：弗朗西斯·福特·科波拉\n主演：马龙·白兰度 / 阿尔·帕西诺\n\n维多·柯里昂是纽约黑手党柯里昂家族的族长。",
+        posterUrl: "https://picsum.photos/300/450?random=15",
         videoUrl: "https://www.youtube.com/embed/UaVTIH8mujA"
     },
     {
@@ -203,8 +203,8 @@ const movies = [
         actors: "克里斯蒂安·贝尔 / 希斯·莱杰",
         category: "fantasy",
         description: "蝙蝠侠与小丑的巅峰对决，超级英雄电影的标杆。",
-        detail: "导演：克里斯托弗·诺兰\n主演：克里斯蒂安·贝尔 / 希斯·莱杰\n\n蝙蝠侠在哥谭市打击犯罪已经两年了，城市的犯罪率有所下降。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Dark%20Knight%20movie%20poster%20Batman%20Joker%20gotham&image_size=portrait_4_3",
+        detail: "导演：克里斯托弗·诺兰\n主演：克里斯蒂安·贝尔 / 希斯·莱杰\n\n蝙蝠侠在哥谭市打击犯罪已经两年了。",
+        posterUrl: "https://picsum.photos/300/450?random=16",
         videoUrl: "https://www.youtube.com/embed/EXeTwQWrcwY"
     },
     {
@@ -217,7 +217,7 @@ const movies = [
         category: "fantasy",
         description: "中土世界终极决战，史诗故事迎来圆满落幕。",
         detail: "导演：彼得·杰克逊\n主演：伊利亚·伍德 / 维果·莫腾森\n\n佛罗多和山姆继续他们的旅程，前往末日火山摧毁魔戒。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Lord%20of%20the%20Rings%20movie%20poster%20fantasy%20epic%20battle&image_size=portrait_4_3",
+        posterUrl: "https://picsum.photos/300/450?random=17",
         videoUrl: "https://www.youtube.com/embed/ddwc9876YmY"
     },
     {
@@ -229,8 +229,8 @@ const movies = [
         actors: "丹尼尔·雷德克里夫 / 艾玛·沃特森",
         category: "fantasy",
         description: "魔法世界的大门已经打开，一段关于成长与勇气的传奇。",
-        detail: "导演：克里斯·哥伦布\n主演：丹尼尔·雷德克里夫 / 艾玛·沃特森\n\n孤儿哈利·波特在11岁生日那天收到了一封神秘的信，邀请他前往霍格沃茨魔法学校学习魔法。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Harry%20Potter%20movie%20poster%20wizard%20school%20magic&image_size=portrait_4_3",
+        detail: "导演：克里斯·哥伦布\n主演：丹尼尔·雷德克里夫 / 艾玛·沃特森\n\n孤儿哈利·波特收到了霍格沃茨魔法学校的邀请。",
+        posterUrl: "https://picsum.photos/300/450?random=18",
         videoUrl: "https://www.youtube.com/embed/VyHV0BRtdxo"
     },
     {
@@ -238,12 +238,12 @@ const movies = [
         title: "复仇者联盟4",
         year: 2019,
         rating: 8.5,
-        director: "安东尼·罗素 / 乔·罗素",
+        director: "安东尼·罗素",
         actors: "小罗伯特·唐尼 / 克里斯·埃文斯",
         category: "fantasy",
         description: "初代复仇者终章，英雄集结逆转战局。",
-        detail: "导演：安东尼·罗素 / 乔·罗素\n主演：小罗伯特·唐尼 / 克里斯·埃文斯\n\n在灭霸打响指之后，宇宙中一半的生命消失了。复仇者们陷入了绝望。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Avengers%20Endgame%20movie%20poster%20superheroes%20assemble%20epic&image_size=portrait_4_3",
+        detail: "导演：安东尼·罗素\n主演：小罗伯特·唐尼 / 克里斯·埃文斯\n\n在灭霸打响指之后，宇宙中一半的生命消失了。",
+        posterUrl: "https://picsum.photos/300/450?random=19",
         videoUrl: "https://www.youtube.com/embed/gNgdBe-xhU4"
     },
     {
@@ -252,11 +252,11 @@ const movies = [
         year: 2009,
         rating: 9.1,
         director: "彼特·道格特",
-        actors: "爱德华·阿斯纳 / 乔丹·长井",
+        actors: "爱德华·阿斯纳",
         category: "animation",
         description: "带着梦想与回忆，飞向未知的仙境瀑布。",
-        detail: "导演：彼特·道格特\n配音：爱德华·阿斯纳 / 乔丹·长井\n\n卡尔·弗雷德里克森是一个退休的气球销售员，他一直梦想着去南美洲的仙境瀑布探险。",
-        posterUrl: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=Up%20animated%20movie%20poster%20house%20balloons%20adventure&image_size=portrait_4_3",
+        detail: "导演：彼特·道格特\n配音：爱德华·阿斯纳\n\n卡尔·弗雷德里克森一直梦想着去南美洲的仙境瀑布探险。",
+        posterUrl: "https://picsum.photos/300/450?random=20",
         videoUrl: "https://www.youtube.com/embed/FbXqHTR5SCc"
     }
 ];
@@ -267,7 +267,7 @@ let searchQuery = '';
 let lightboxImages = [];
 let currentLightboxIndex = 0;
 
-const PLACEHOLDER_IMG = "https://via.placeholder.com/300x450/1a1a2e/95a5a6?text=电影海报";
+const PLACEHOLDER_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='450' viewBox='0 0 300 450'%3E%3Crect fill='%231a1a2e' width='300' height='450'/%3E%3Ctext fill='%2395a5a6' font-family='Arial' font-size='16' x='50%25' y='50%25' text-anchor='middle' dominant-baseline='middle'%3E电影海报%3C/text%3E%3C/svg%3E";
 
 function loadStorage() {
     const favorites = JSON.parse(localStorage.getItem('movieFavorites')) || {};
