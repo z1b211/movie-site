@@ -1,1 +1,76 @@
-var m=[{id:1,t:"The Shawshank Redemption",y:1994,r:9.7,c:"drama",d:"Hope is a good thing",u:"https://picsum.photos/300/450?random=1"},{id:2,t:"Forrest Gump",y:1994,r:9.5,c:"drama",d:"Life is like a box of chocolates",u:"https://picsum.photos/300/450?random=2"},{id:3,t:"Interstellar",y:2014,r:9.4,c:"popular",d:"Love transcends time and space",u:"https://picsum.photos/300/450?random=3"},{id:4,t:"Inception",y:2010,r:9.3,c:"popular",d:"Dreams within dreams",u:"https://picsum.photos/300/450?random=4"},{id:5,t:"Titanic",y:1997,r:9.4,c:"popular",d:"A love story for the ages",u:"https://picsum.photos/300/450?random=5"},{id:6,t:"Spirited Away",y:2001,r:9.4,c:"animation",d:"A magical adventure",u:"https://picsum.photos/300/450?random=6"},{id:7,t:"Your Name",y:2016,r:9.1,c:"animation",d:"Love across time",u:"https://picsum.photos/300/450?random=7"},{id:8,t:"The Godfather",y:1972,r:9.4,c:"drama",d:"The epic mafia story",u:"https://picsum.photos/300/450?random=8"},{id:9,t:"The Dark Knight",y:2008,r:9.2,c:"fantasy",d:"Batman vs Joker",u:"https://picsum.photos/300/450?random=9"},{id:10,t:"Avengers",y:2019,r:8.5,c:"fantasy",d:"Heroes assemble",u:"https://picsum.photos/300/450?random=10"}];var c="all",q="";function r(){var g=document.getElementById("moviesGrid");if(!g)return;g.innerHTML="";var f=m.filter(function(a){return c==="all"||a.c===c});if(q){var b=q.toLowerCase();f=f.filter(function(a){return a.t.toLowerCase().indexOf(b)!==-1||a.d.toLowerCase().indexOf(b)!==-1})}f.sort(function(a,b){return b.r-a.r});f.forEach(function(a,b){var e=document.createElement("div");e.className="movie-card";e.innerHTML='<div class="movie-image-container"><img src="'+a.u+'" alt="'+a.t+'" class="movie-img"></div><div class="movie-info"><h3 class="movie-title">'+a.t+'</h3><div class="movie-meta"><span>'+a.y+'</span><span class="movie-rating">⭐ '+a.r+'</span></div><p class="movie-description">'+a.d+'</p></div>';g.appendChild(e);setTimeout(function(){e.classList.add("visible")},b*50)})}function i(){document.querySelectorAll(".nav-link").forEach(function(a){a.addEventListener("click",function(b){b.preventDefault();document.querySelectorAll(".nav-link").forEach(function(d){d.classList.remove("active")});a.classList.add("active");c=a.dataset.category;r()})});var f=document.getElementById("searchBtn"),g=document.getElementById("searchInput");if(f)f.addEventListener("click",function(){q=g.value;r()});if(g)g.addEventListener("keypress",function(a){if(a.key==="Enter"){q=this.value;r()}});r()}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",i):i()
+const movies = [
+    {id:1,title:"The Shawshank Redemption",year:1994,rating:9.7,category:"drama",description:"Hope is a good thing, maybe the best of things.",image:"https://picsum.photos/300/450?random=1"},
+    {id:2,title:"Forrest Gump",year:1994,rating:9.5,category:"drama",description:"Life is like a box of chocolates.",image:"https://picsum.photos/300/450?random=2"},
+    {id:3,title:"Interstellar",year:2014,rating:9.4,category:"popular",description:"Love transcends time and space.",image:"https://picsum.photos/300/450?random=3"},
+    {id:4,title:"Inception",year:2010,rating:9.3,category:"popular",description:"Dreams within dreams.",image:"https://picsum.photos/300/450?random=4"},
+    {id:5,title:"Titanic",year:1997,rating:9.4,category:"popular",description:"A love story for the ages.",image:"https://picsum.photos/300/450?random=5"},
+    {id:6,title:"Spirited Away",year:2001,rating:9.4,category:"animation",description:"A magical adventure.",image:"https://picsum.photos/300/450?random=6"},
+    {id:7,title:"Your Name",year:2016,rating:9.1,category:"animation",description:"Love across time.",image:"https://picsum.photos/300/450?random=7"},
+    {id:8,title:"The Godfather",year:1972,rating:9.4,category:"drama",description:"The epic mafia story.",image:"https://picsum.photos/300/450?random=8"},
+    {id:9,title:"The Dark Knight",year:2008,rating:9.2,category:"fantasy",description:"Batman vs Joker.",image:"https://picsum.photos/300/450?random=9"},
+    {id:10,title:"Avengers",year:2019,rating:8.5,category:"fantasy",description:"Heroes assemble.",image:"https://picsum.photos/300/450?random=10"}
+];
+
+let currentCategory = 'all';
+let searchQuery = '';
+
+function renderMovies() {
+    const grid = document.getElementById('moviesGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    
+    let filtered = movies.filter(m => currentCategory === 'all' || m.category === currentCategory);
+    
+    if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filtered = filtered.filter(m => m.title.toLowerCase().includes(query) || m.description.toLowerCase().includes(query));
+    }
+    
+    filtered.sort((a, b) => b.rating - a.rating);
+    
+    filtered.forEach((movie, index) => {
+        const card = document.createElement('div');
+        card.className = 'movie-card';
+        card.innerHTML = `
+            <div class="movie-image-container">
+                <img src="${movie.image}" alt="${movie.title}" class="movie-img">
+            </div>
+            <div class="movie-info">
+                <h3 class="movie-title">${movie.title}</h3>
+                <div class="movie-meta">
+                    <span>${movie.year}</span>
+                    <span class="movie-rating">⭐ ${movie.rating}</span>
+                </div>
+                <p class="movie-description">${movie.description}</p>
+            </div>
+        `;
+        grid.appendChild(card);
+        setTimeout(() => card.classList.add('visible'), index * 50);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
+            currentCategory = link.dataset.category;
+            renderMovies();
+        });
+    });
+    
+    document.getElementById('searchBtn').addEventListener('click', () => {
+        searchQuery = document.getElementById('searchInput').value;
+        renderMovies();
+    });
+    
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            searchQuery = e.target.value;
+            renderMovies();
+        }
+    });
+    
+    renderMovies();
+});
