@@ -9,36 +9,29 @@
         :root {
             --primary: #e50914;
             --primary-dark: #b90910;
-            --secondary: #00d4ff;
             --bg-dark: #0a0a0f;
             --bg-card: #14141f;
-            --bg-card-hover: #1e1e2e;
             --text-primary: #ffffff;
             --text-secondary: #a0a0b0;
             --border-color: #2a2a3a;
-            --shadow: 0 4px 20px rgba(0,0,0,0.3);
-            --shadow-hover: 0 8px 30px rgba(0,0,0,0.5);
         }
         body {
             font-family: 'PingFang SC', 'Microsoft YaHei', -apple-system, sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
-            line-height: 1.6;
+            padding-top: 70px;
         }
-        a { text-decoration: none; color: inherit; }
 
-        /* Header */
         header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(180deg, rgba(10,10,15,0.98) 0%, rgba(10,10,15,0.9) 100%);
-            backdrop-filter: blur(15px);
+            background: rgba(10,10,15,0.98);
+            backdrop-filter: blur(10px);
             z-index: 100;
             border-bottom: 1px solid var(--border-color);
-            transition: all 0.3s;
         }
         .header-content {
             max-width: 1400px;
@@ -50,7 +43,7 @@
             height: 70px;
         }
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
             display: flex;
@@ -58,34 +51,6 @@
             gap: 8px;
         }
         .logo span { color: var(--text-primary); }
-        .nav-links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-        .nav-links a {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s;
-            position: relative;
-        }
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--primary);
-        }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-        .nav-links a:hover::after, .nav-links a.active::after {
-            width: 100%;
-        }
         .search-box {
             display: flex;
             align-items: center;
@@ -93,12 +58,7 @@
             border-radius: 30px;
             padding: 8px 20px;
             border: 1px solid var(--border-color);
-            transition: all 0.3s;
             width: 280px;
-        }
-        .search-box:focus-within {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(229,9,20,0.2);
         }
         .search-box input {
             flex: 1;
@@ -107,204 +67,34 @@
             outline: none;
             color: var(--text-primary);
             font-size: 0.95rem;
-            padding: 6px 0;
         }
-        .search-box input::placeholder { color: var(--text-secondary); }
         .search-btn {
             background: none;
             border: none;
             color: var(--text-secondary);
             cursor: pointer;
-            font-size: 1rem;
-            transition: color 0.3s;
         }
-        .search-btn:hover { color: var(--primary); }
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
             color: var(--text-primary);
             font-size: 1.5rem;
-            cursor: pointer;
         }
         .mobile-nav {
             display: none;
-            position: absolute;
-            top: 70px;
-            left: 0;
-            right: 0;
-            background: var(--bg-dark);
-            border-bottom: 1px solid var(--border-color);
             padding: 20px;
+            border-top: 1px solid var(--border-color);
         }
         .mobile-nav.active { display: block; }
         .mobile-nav-links { list-style: none; }
-        .mobile-nav-links li { margin: 12px 0; }
-        .mobile-nav-links a {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            display: block;
-            padding: 8px 0;
-        }
+        .mobile-nav-links li { margin: 10px 0; }
+        .mobile-nav-links a { color: var(--text-secondary); }
 
-        /* Hero Banner */
-        .hero-section {
-            margin-top: 70px;
-            position: relative;
-            height: 550px;
-            overflow: hidden;
-        }
-        .hero-slider { position: relative; height: 100%; }
-        .hero-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: opacity 0.6s ease;
-        }
-        .hero-slide.active { opacity: 1; }
-        .hero-slide::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(180deg, rgba(10,10,15,0.4) 0%, rgba(10,10,15,0.7) 50%, rgba(10,10,15,0.98) 100%);
-        }
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 50px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding-bottom: 80px;
-        }
-        .hero-rating {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .rating-star { color: #f39c12; font-size: 1.2rem; }
-        .rating-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #f39c12;
-        }
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-        }
-        .hero-genre {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .genre-tag {
-            padding: 6px 16px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 20px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-        .hero-desc {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
-            max-width: 650px;
-            line-height: 1.8;
-        }
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-        }
-        .btn {
-            padding: 14px 32px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(229,9,20,0.4);
-        }
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.15);
-            border-color: rgba(255,255,255,0.3);
-        }
-        .hero-indicators {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 3;
-        }
-        .hero-indicator {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.3);
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-        .hero-indicator:hover { background: rgba(255,255,255,0.6); }
-        .hero-indicator.active {
-            background: var(--primary);
-            width: 40px;
-            border-radius: 7px;
-            border-color: rgba(229,9,20,0.5);
-        }
-
-        /* Categories */
         .categories-section {
-            padding: 40px 24px;
+            padding: 30px 24px;
             max-width: 1400px;
             margin: 0 auto;
-        }
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .section-title::before {
-            content: '';
-            width: 4px;
-            height: 24px;
-            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 2px;
         }
         .categories {
             display: flex;
@@ -318,43 +108,45 @@
             cursor: pointer;
             transition: all 0.3s;
             border: 1px solid var(--border-color);
-            font-size: 0.95rem;
-            font-weight: 500;
         }
-        .category-tag:hover {
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-        .category-tag.active {
-            background: var(--primary);
-            border-color: var(--primary);
-            color: white;
-        }
+        .category-tag:hover { border-color: var(--primary); color: var(--primary); }
+        .category-tag.active { background: var(--primary); border-color: var(--primary); }
 
-        /* Movies Grid */
         .movies-section {
             padding: 20px 24px;
             max-width: 1400px;
             margin: 0 auto;
         }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 22px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
         .movies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
         }
         .movie-card {
             background: var(--bg-card);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.4s;
+            transition: all 0.3s;
             border: 1px solid var(--border-color);
-            position: relative;
         }
         .movie-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
             border-color: var(--primary);
         }
         .movie-poster {
@@ -366,133 +158,77 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform 0.4s;
         }
-        .movie-card:hover .movie-poster img {
-            transform: scale(1.08);
-        }
-        .movie-rating-badge {
+        .movie-card:hover .movie-poster img { transform: scale(1.05); }
+        .movie-rating {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(4px);
-            padding: 6px 12px;
-            border-radius: 20px;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 5px 10px;
+            border-radius: 15px;
             font-size: 0.85rem;
-            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 4px;
         }
-        .movie-rating-badge .star { color: #f39c12; }
+        .movie-rating .star { color: #f39c12; }
         .movie-info {
-            padding: 16px;
+            padding: 14px;
         }
         .movie-title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 8px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .movie-meta {
+        .movie-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 6px;
+            margin-bottom: 10px;
         }
         .movie-tag {
-            font-size: 0.78rem;
-            padding: 4px 10px;
-            background: var(--bg-card-hover);
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            background: rgba(255,255,255,0.08);
             border-radius: 4px;
             color: var(--text-secondary);
         }
         .movie-preview {
             display: none;
-            margin-top: 12px;
-            padding-top: 12px;
+            margin-top: 10px;
+            padding-top: 10px;
             border-top: 1px solid var(--border-color);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
-            line-height: 1.5;
         }
-        .movie-card:hover .movie-preview {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        .movie-preview-btn {
+        .movie-card:hover .movie-preview { display: block; }
+        .movie-play-btn {
             display: none;
-            margin-top: 14px;
-            padding: 10px 20px;
+            margin-top: 12px;
+            padding: 8px 16px;
             background: var(--primary);
             border-radius: 6px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            transition: all 0.3s;
         }
-        .movie-card:hover .movie-preview-btn {
-            display: block;
-            animation: fadeIn 0.3s ease 0.1s both;
-        }
-        .movie-preview-btn:hover {
-            background: var(--primary-dark);
-            transform: scale(1.02);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .movie-card:hover .movie-play-btn { display: block; }
 
-        /* Footer */
         footer {
             background: var(--bg-card);
-            padding: 50px 24px;
-            margin-top: 60px;
-            border-top: 1px solid var(--border-color);
-        }
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .footer-top {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        .footer-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 12px;
-        }
-        .footer-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        .footer-links {
-            list-style: none;
-        }
-        .footer-links li { margin: 10px 0; }
-        .footer-links a {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        .footer-links a:hover { color: var(--primary); }
-        .footer-bottom {
-            padding-top: 20px;
+            padding: 30px 24px;
+            margin-top: 50px;
             border-top: 1px solid var(--border-color);
             text-align: center;
             color: var(--text-secondary);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
-        /* Movie Detail Modal */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -503,11 +239,10 @@
             background: rgba(0,0,0,0.95);
             z-index: 200;
             overflow-y: auto;
-            animation: fadeIn 0.3s ease;
         }
         .modal-overlay.active { display: block; }
         .modal-content {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 100px auto;
             padding: 0 24px 40px;
         }
@@ -515,7 +250,7 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 32px;
+            margin-bottom: 30px;
         }
         .close-btn {
             background: none;
@@ -523,93 +258,87 @@
             color: var(--text-secondary);
             font-size: 2.5rem;
             cursor: pointer;
-            transition: color 0.3s;
             line-height: 1;
         }
         .close-btn:hover { color: var(--primary); }
         .detail-main {
             display: grid;
-            grid-template-columns: 1fr 2.5fr;
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: 1fr 2fr;
+            gap: 35px;
         }
         .detail-poster {
-            position: relative;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
         .detail-poster img { width: 100%; }
-        .detail-info { display: flex; flex-direction: column; }
         .detail-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-        .detail-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 24px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
         }
         .detail-rating {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
-        .detail-rating .star { color: #f39c12; font-size: 1.5rem; }
-        .detail-rating .value { font-size: 2rem; font-weight: 700; color: #f39c12; }
-        .detail-meta-grid {
+        .detail-rating .star { color: #f39c12; font-size: 1.4rem; }
+        .detail-rating .value { font-size: 1.8rem; font-weight: 700; color: #f39c12; }
+        .detail-meta {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 30px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
-        .meta-item {
-            display: flex;
-            flex-direction: column;
-        }
-        .meta-label {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-        .meta-value {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
+        .meta-item { display: flex; flex-direction: column; }
+        .meta-label { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 4px; }
+        .meta-value { color: var(--text-primary); }
         .detail-desc {
-            line-height: 1.9;
+            line-height: 1.8;
             color: var(--text-secondary);
-            font-size: 1.05rem;
-            margin-bottom: 32px;
+            margin-bottom: 25px;
         }
-        .detail-buttons {
-            display: flex;
-            gap: 16px;
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
         }
-
-        /* Similar Movies */
-        .similar-section { margin-top: 40px; }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        .similar-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
         .similar-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
         }
         .similar-card {
             cursor: pointer;
-            transition: transform 0.3s;
             border-radius: 8px;
             overflow: hidden;
+            transition: transform 0.3s;
         }
-        .similar-card:hover { transform: translateY(-5px); }
+        .similar-card:hover { transform: translateY(-4px); }
         .similar-card img {
             width: 100%;
             aspect-ratio: 2/3;
             object-fit: cover;
         }
         .similar-card-title {
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 0.85rem;
             text-align: center;
             white-space: nowrap;
@@ -617,39 +346,28 @@
             text-overflow: ellipsis;
         }
 
-        /* Search Results */
         .search-results {
-            padding: 100px 24px;
+            padding: 30px 24px;
             max-width: 1400px;
             margin: 0 auto;
         }
         .search-title {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
+            font-size: 1.5rem;
+            margin-bottom: 25px;
         }
-        .search-count { color: var(--text-secondary); }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
             .search-box { width: 180px; }
-            .hero-section { height: 420px; }
-            .hero-content { padding: 0 24px 60px; }
-            .hero-title { font-size: 2.2rem; }
-            .hero-desc { font-size: 1rem; }
-            .btn { padding: 12px 24px; font-size: 0.9rem; }
+            .mobile-menu-btn { display: block; }
             .detail-main { grid-template-columns: 1fr; }
-            .detail-title { font-size: 2rem; }
-            .detail-meta-grid { grid-template-columns: 1fr; }
-            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
-            .similar-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
-            .footer-top { gap: 24px; }
+            .detail-title { font-size: 1.8rem; }
+            .detail-meta { grid-template-columns: 1fr; }
+            .movies-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .similar-grid { grid-template-columns: repeat(4, 1fr); }
         }
         @media (max-width: 480px) {
-            .hero-title { font-size: 1.8rem; }
-            .hero-desc { display: none; }
             .movies-grid { grid-template-columns: repeat(2, 1fr); }
+            .similar-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -657,16 +375,6 @@
     <header>
         <div class="header-content">
             <a href="#" class="logo">🎬 <span>光影世界</span></a>
-            <nav>
-                <ul class="nav-links">
-                    <li><a href="#" class="active" data-page="home">首页</a></li>
-                    <li><a href="#" data-page="category" data-cat="action">动作</a></li>
-                    <li><a href="#" data-page="category" data-cat="comedy">喜剧</a></li>
-                    <li><a href="#" data-page="category" data-cat="scifi">科幻</a></li>
-                    <li><a href="#" data-page="category" data-cat="suspense">悬疑</a></li>
-                    <li><a href="#" data-page="category" data-cat="animation">动画</a></li>
-                </ul>
-            </nav>
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="搜索电影、演员、导演...">
                 <button class="search-btn" id="searchBtn">🔍</button>
@@ -675,23 +383,17 @@
         </div>
         <nav class="mobile-nav" id="mobileNav">
             <ul class="mobile-nav-links">
-                <li><a href="#" data-page="home">首页</a></li>
-                <li><a href="#" data-page="category" data-cat="action">动作</a></li>
-                <li><a href="#" data-page="category" data-cat="comedy">喜剧</a></li>
-                <li><a href="#" data-page="category" data-cat="scifi">科幻</a></li>
-                <li><a href="#" data-page="category" data-cat="suspense">悬疑</a></li>
-                <li><a href="#" data-page="category" data-cat="animation">动画</a></li>
+                <li><a href="#" data-cat="all">全部</a></li>
+                <li><a href="#" data-cat="action">动作</a></li>
+                <li><a href="#" data-cat="comedy">喜剧</a></li>
+                <li><a href="#" data-cat="scifi">科幻</a></li>
+                <li><a href="#" data-cat="suspense">悬疑</a></li>
+                <li><a href="#" data-cat="animation">动画</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero-section" id="heroSection">
-        <div class="hero-slider" id="heroSlider"></div>
-        <div class="hero-indicators" id="heroIndicators"></div>
-    </section>
-
     <section class="categories-section">
-        <h2 class="section-title">分类浏览</h2>
         <div class="categories" id="categories">
             <span class="category-tag active" data-cat="all">全部</span>
             <span class="category-tag" data-cat="action">动作</span>
@@ -700,13 +402,7 @@
             <span class="category-tag" data-cat="suspense">悬疑</span>
             <span class="category-tag" data-cat="love">爱情</span>
             <span class="category-tag" data-cat="animation">动画</span>
-            <span class="category-tag" data-cat="documentary">纪录片</span>
         </div>
-    </section>
-
-    <section class="movies-section">
-        <h2 class="section-title">新片上线</h2>
-        <div class="movies-grid" id="newReleasesGrid"></div>
     </section>
 
     <section class="movies-section">
@@ -729,35 +425,7 @@
     </div>
 
     <footer>
-        <div class="footer-content">
-            <div class="footer-top">
-                <div>
-                    <div class="footer-logo">🎬 光影世界</div>
-                    <p class="footer-desc">探索光影世界，发现精彩故事</p>
-                </div>
-                <div>
-                    <h4>快速链接</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">电影分类</a></li>
-                        <li><a href="#">新片上线</a></li>
-                        <li><a href="#">高分推荐</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>关于我们</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">关于网站</a></li>
-                        <li><a href="#">联系我们</a></li>
-                        <li><a href="#">隐私政策</a></li>
-                        <li><a href="#">使用条款</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2024 光影世界 - 用心推荐每一部好电影</p>
-            </div>
-        </div>
+        <p>© 2024 光影世界 - 用心推荐每一部好电影</p>
     </footer>
 
     <script>
@@ -784,46 +452,15 @@
             { id: 20, title: "少年的你", rating: 8.7, type: "剧情/校园", typeTags: ["drama", "school"], director: "曾国祥", actors: "周冬雨 / 易烊千玺", year: 2019, region: "中国", poster: "https://image.tmdb.org/t/p/w500/qLmdKa1KO5h70dWRME7dC96x5bS.jpg", desc: "陈念是一名即将参加高考的高中生，却遭遇了校园霸凌。在最黑暗的时刻，她遇到了小北——一个街头少年。两人互相扶持，共同面对生活的挑战。这部电影深刻地探讨了校园霸凌问题和青少年的成长。", playUrl: "https://so.iqiyi.com/so/q_少年的你" }
         ];
 
-        const categoryMap = { 'all': '全部', 'action': '动作', 'comedy': '喜剧', 'scifi': '科幻', 'suspense': '悬疑', 'love': '爱情', 'animation': '动画', 'documentary': '纪录片' };
-
-        function initHeroSlider() {
-            const slider = document.getElementById('heroSlider');
-            const indicators = document.getElementById('heroIndicators');
-            const topMovies = [...movies].sort((a,b) => b.rating - a.rating).slice(0, 5);
-            
-            topMovies.forEach((movie, index) => {
-                const slide = document.createElement('div');
-                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
-                slide.style.backgroundImage = `url(${movie.poster})`;
-                slide.innerHTML = `<div class="hero-content"><div class="hero-rating"><span class="rating-star">⭐</span><span class="rating-value">${movie.rating}</span></div><h1 class="hero-title">${movie.title}</h1><div class="hero-genre"><span class="genre-tag">${movie.type}</span><span class="genre-tag">${movie.year}</span></div><p class="hero-desc">${movie.desc.slice(0, 120)}...</p><div class="hero-buttons"><button class="btn btn-primary" onclick="playMovie('${movie.playUrl}')">▶ 立即播放</button><button class="btn btn-secondary" onclick="showMovieDetail(${movie.id})">详情</button></div></div>`;
-                slider.appendChild(slide);
-                
-                const indicator = document.createElement('div');
-                indicator.className = `hero-indicator ${index === 0 ? 'active' : ''}`;
-                indicator.addEventListener('click', () => setSlide(index));
-                indicators.appendChild(indicator);
-            });
-            
-            let currentSlide = 0;
-            setInterval(() => { currentSlide = (currentSlide + 1) % topMovies.length; setSlide(currentSlide); }, 6000);
-            
-            function setSlide(index) {
-                document.querySelectorAll('.hero-slide').forEach((s, i) => s.classList.toggle('active', i === index));
-                document.querySelectorAll('.hero-indicator').forEach((i, idx) => i.classList.toggle('active', idx === index));
-            }
-        }
+        const categoryMap = { 'all': '全部', 'action': '动作', 'comedy': '喜剧', 'scifi': '科幻', 'suspense': '悬疑', 'love': '爱情', 'animation': '动画' };
 
         function renderMovieCard(movie) {
-            return `<div class="movie-card" onclick="showMovieDetail(${movie.id})"><div class="movie-poster"><img src="${movie.poster}" alt="${movie.title}" loading="lazy"><div class="movie-rating-badge"><span class="star">⭐</span>${movie.rating}</div></div><div class="movie-info"><h3 class="movie-title">${movie.title}</h3><div class="movie-meta"><span class="movie-tag">${movie.type}</span><span class="movie-tag">${movie.year}</span></div><p class="movie-preview">${movie.desc.slice(0, 70)}...</p><div class="movie-preview-btn" onclick="event.stopPropagation(); playMovie('${movie.playUrl}')">▶ 立即播放</div></div></div>`;
+            return `<div class="movie-card" onclick="showMovieDetail(${movie.id})"><div class="movie-poster"><img src="${movie.poster}" alt="${movie.title}" loading="lazy"><div class="movie-rating"><span class="star">⭐</span>${movie.rating}</div></div><div class="movie-info"><h3 class="movie-title">${movie.title}</h3><div class="movie-tags"><span class="movie-tag">${movie.type}</span><span class="movie-tag">${movie.year}</span></div><p class="movie-preview">${movie.desc.slice(0, 60)}...</p><div class="movie-play-btn" onclick="event.stopPropagation(); playMovie('${movie.playUrl}')">▶ 立即播放</div></div></div>`;
         }
 
         function renderSections() {
-            const newReleases = [...movies].sort((a,b) => b.year - a.year).slice(0, 6);
-            document.getElementById('newReleasesGrid').innerHTML = newReleases.map(renderMovieCard).join('');
-            
-            const topRated = [...movies].sort((a,b) => b.rating - a.rating).slice(0, 6);
+            const topRated = [...movies].sort((a,b) => b.rating - a.rating).slice(0, 8);
             document.getElementById('topRatedGrid').innerHTML = topRated.map(renderMovieCard).join('');
-            
             document.getElementById('allMoviesGrid').innerHTML = movies.map(renderMovieCard).join('');
         }
 
@@ -836,7 +473,7 @@
             const modal = document.getElementById('movieModal');
             const content = document.getElementById('modalContent');
             
-            content.innerHTML = `<div class="modal-header"><h1 class="detail-title">${movie.title}</h1><button class="close-btn" onclick="closeModal()">×</button></div><div class="detail-main"><div class="detail-poster"><img src="${movie.poster}" alt="${movie.title}"></div><div class="detail-info"><p class="detail-subtitle">${movie.titleEn}</p><div class="detail-rating"><span class="star">⭐</span><span class="value">${movie.rating}</span></div><div class="detail-meta-grid"><div class="meta-item"><span class="meta-label">类型</span><span class="meta-value">${movie.type}</span></div><div class="meta-item"><span class="meta-label">导演</span><span class="meta-value">${movie.director}</span></div><div class="meta-item"><span class="meta-label">主演</span><span class="meta-value">${movie.actors}</span></div><div class="meta-item"><span class="meta-label">上映时间</span><span class="meta-value">${movie.year}</span></div><div class="meta-item"><span class="meta-label">地区</span><span class="meta-value">${movie.region}</span></div></div><p class="detail-desc">${movie.desc}</p><div class="detail-buttons"><button class="btn btn-primary" onclick="playMovie('${movie.playUrl}')">▶ 立即播放</button></div></div></div><div class="similar-section"><h3 class="section-title">同类型推荐</h3><div class="similar-grid">${similarMovies.map(m => `<div class="similar-card" onclick="showMovieDetail(${m.id})"><img src="${m.poster}" alt="${m.title}"><p class="similar-card-title">${m.title}</p></div>`).join('')}</div></div>`;
+            content.innerHTML = `<div class="modal-header"><h1 class="detail-title">${movie.title}</h1><button class="close-btn" onclick="closeModal()">×</button></div><div class="detail-main"><div class="detail-poster"><img src="${movie.poster}" alt="${movie.title}"></div><div class="detail-info"><div class="detail-rating"><span class="star">⭐</span><span class="value">${movie.rating}</span></div><div class="detail-meta"><div class="meta-item"><span class="meta-label">类型</span><span class="meta-value">${movie.type}</span></div><div class="meta-item"><span class="meta-label">导演</span><span class="meta-value">${movie.director}</span></div><div class="meta-item"><span class="meta-label">主演</span><span class="meta-value">${movie.actors}</span></div><div class="meta-item"><span class="meta-label">上映时间</span><span class="meta-value">${movie.year}</span></div><div class="meta-item"><span class="meta-label">地区</span><span class="meta-value">${movie.region}</span></div></div><p class="detail-desc">${movie.desc}</p><button class="btn btn-primary" onclick="playMovie('${movie.playUrl}')">▶ 立即播放</button></div></div><div class="similar-section"><h3 class="section-title">同类型推荐</h3><div class="similar-grid">${similarMovies.map(m => `<div class="similar-card" onclick="showMovieDetail(${m.id})"><img src="${m.poster}" alt="${m.title}"><p class="similar-card-title">${m.title}</p></div>`).join('')}</div></div>`;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -854,15 +491,14 @@
             document.querySelectorAll('.category-tag').forEach(t => t.classList.remove('active'));
             document.querySelector(`[data-cat="${category}"]`).classList.add('active');
             
-            document.querySelectorAll('.hero-section, .categories-section, .movies-section').forEach(s => s.style.display = '');
+            document.querySelectorAll('.movies-section').forEach(s => s.style.display = '');
             document.getElementById('searchResults').style.display = 'none';
             
             if (category === 'all') {
                 renderSections();
             } else {
                 const filtered = movies.filter(m => m.typeTags.includes(category) || m.type.includes(categoryMap[category]));
-                document.getElementById('newReleasesGrid').innerHTML = filtered.slice(0, 6).map(renderMovieCard).join('');
-                document.getElementById('topRatedGrid').innerHTML = [...filtered].sort((a,b) => b.rating - a.rating).slice(0, 6).map(renderMovieCard).join('');
+                document.getElementById('topRatedGrid').innerHTML = [...filtered].sort((a,b) => b.rating - a.rating).slice(0, 8).map(renderMovieCard).join('');
                 document.getElementById('allMoviesGrid').innerHTML = filtered.map(renderMovieCard).join('');
             }
         }
@@ -877,10 +513,10 @@
                 
                 const results = movies.filter(m => m.title.includes(query) || m.actors.includes(query) || m.director.includes(query));
                 
-                document.getElementById('searchTitle').innerHTML = `搜索结果："${query}" <span class="search-count">(${results.length}部影片)</span>`;
+                document.getElementById('searchTitle').innerHTML = `搜索结果："${query}" (${results.length}部影片)`;
                 document.getElementById('searchGrid').innerHTML = results.map(renderMovieCard).join('');
                 
-                document.querySelectorAll('.hero-section, .categories-section, .movies-section').forEach(s => s.style.display = 'none');
+                document.querySelectorAll('.movies-section').forEach(s => s.style.display = 'none');
                 document.getElementById('searchResults').style.display = 'block';
             }
             
@@ -888,14 +524,18 @@
             searchInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') performSearch(); });
         }
 
-        function initNav() {
-            document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(link => {
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSections();
+            initSearch();
+            
+            document.querySelectorAll('.category-tag').forEach(tag => {
+                tag.addEventListener('click', () => filterByCategory(tag.dataset.cat));
+            });
+            
+            document.querySelectorAll('.mobile-nav-links a').forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (link.dataset.page === 'home') filterByCategory('all');
-                    else if (link.dataset.cat) filterByCategory(link.dataset.cat);
-                    document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(l => l.classList.remove('active'));
-                    link.classList.add('active');
+                    filterByCategory(link.dataset.cat);
                     document.getElementById('mobileNav').classList.remove('active');
                 });
             });
@@ -903,17 +543,6 @@
             document.getElementById('mobileMenuBtn').addEventListener('click', () => {
                 document.getElementById('mobileNav').classList.toggle('active');
             });
-            
-            document.querySelectorAll('.category-tag').forEach(tag => {
-                tag.addEventListener('click', () => filterByCategory(tag.dataset.cat));
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initHeroSlider();
-            renderSections();
-            initSearch();
-            initNav();
             
             document.getElementById('movieModal').addEventListener('click', (e) => {
                 if (e.target === document.getElementById('movieModal')) closeModal();
