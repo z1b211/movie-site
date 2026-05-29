@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -10,145 +10,312 @@
             --secondary-color: #3498db;
             --bg-dark: #0a0a0f;
             --bg-card: #151520;
+            --bg-card-hover: #1f1f2e;
             --text-primary: #ffffff;
             --text-secondary: #a0a0b0;
+            --border-color: #2a2a3a;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif; background: var(--bg-dark); color: var(--text-primary); min-height: 100vh; }
-        header { position: fixed; top: 0; left: 0; right: 0; background: rgba(10,10,15,0.95); z-index: 100; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 65px; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
-        .nav-links { display: flex; gap: 30px; list-style: none; }
-        .nav-links a { color: var(--text-secondary); text-decoration: none; }
-        .nav-links a:hover { color: var(--primary-color); }
-        .search-box { display: flex; align-items: center; background: var(--bg-card); border-radius: 30px; padding: 8px 15px; }
-        .search-box input { background: transparent; border: none; color: var(--text-primary); padding: 5px 10px; }
-        .mobile-menu-btn { display: none; font-size: 1.5rem; color: var(--text-primary); background: none; border: none; }
-        .hero-section { margin-top: 65px; height: 500px; position: relative; overflow: hidden; }
-        .hero-slide { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-size: cover; background-position: center; opacity: 0; transition: opacity 0.5s; }
-        .hero-slide.active { opacity: 1; }
-        .hero-content { position: relative; z-index: 1; padding: 100px 50px; }
-        .hero-title { font-size: 3rem; margin-bottom: 15px; }
-        .hero-desc { color: var(--text-secondary); margin-bottom: 25px; }
-        .btn { padding: 12px 30px; border-radius: 30px; border: none; cursor: pointer; font-weight: 600; }
-        .btn-primary { background: var(--primary-color); color: white; }
-        .categories-section { padding: 40px 20px; }
-        .section-title { font-size: 1.5rem; margin-bottom: 20px; }
-        .categories { display: flex; flex-wrap: wrap; gap: 15px; }
-        .category-tag { padding: 10px 25px; background: var(--bg-card); border-radius: 25px; cursor: pointer; }
-        .movies-section { padding: 20px; }
-        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .movie-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }        
+        body { font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif; background: var(--bg-dark); color: var(--text-primary); min-height: 100vh; line-height: 1.6; }
+        .main-content { padding: 20px 40px; max-width: 1400px; margin-left: auto; margin-right: auto; }
+        .hero-section { margin-bottom: 50px; }
+        .hero-content { background: linear-gradient(135deg, var(--bg-card) 0%, rgba(231,76,60,0.1) 100%); border-radius: 16px; padding: 40px; border: 1px solid var(--border-color); }
+        .hero-title { font-size: 2rem; margin-bottom: 10px; color: var(--text-primary); }
+        .hero-desc { color: var(--text-secondary); font-size: 1rem; }
+        .categories-section { margin-bottom: 45px; }
+        .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .section-title { font-size: 1.5rem; font-weight: 600; color: var(--text-primary); }
+        .categories { display: flex; flex-wrap: wrap; gap: 12px; }  
+        .category-tag { padding: 10px 25px; background: var(--bg-card); border-radius: 25px; cursor: pointer; color: var(--text-secondary); font-size: 0.9rem; transition: all 0.3s; border: 1px solid var(--border-color); }
+        .category-tag:hover { background: var(--bg-card-hover); color: var(--text-primary); border-color: var(--primary-color); }
+        .category-tag.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+        .movies-section { margin-bottom: 50px; }
+        .movies-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px; }
+        .movie-card { background: var(--bg-card); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.3s; border: 1px solid var(--border-color); }
+        .movie-card:hover { transform: translateY(-5px); background: var(--bg-card-hover); border-color: var(--primary-color); box-shadow: 0 10px 30px rgba(231,76,60,0.15); }
         .movie-poster { position: relative; aspect-ratio: 2/3; overflow: hidden; }
-        .movie-poster img { width: 100%; height: 100%; object-fit: cover; }
-        .movie-info { padding: 15px; }
-        .movie-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-        .movie-tag { font-size: 0.8rem; padding: 3px 8px; background: rgba(255,255,255,0.1); border-radius: 4px; color: var(--text-secondary); }
-        footer { background: var(--bg-card); padding: 40px 20px; margin-top: 50px; text-align: center; }
+        .movie-poster img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .movie-card:hover .movie-poster img { transform: scale(1.05); }
+        .movie-rating-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; color: #f39c12; font-weight: 600; }
+        .movie-info { padding: 16px; }
+        .movie-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .movie-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .movie-tag { font-size: 0.75rem; padding: 4px 10px; background: rgba(255,255,255,0.08); border-radius: 4px; color: var(--text-secondary); }
+        footer { background: var(--bg-card); padding: 40px; margin-top: 50px; text-align: center; border-top: 1px solid var(--border-color); }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; padding: 30px; }
+        .modal-overlay.active { display: flex; }
+        .modal-content { background: var(--bg-card); border-radius: 20px; max-width: 850px; width: 100%; max-height: 85vh; overflow-y: auto; display: flex; border: 1px solid var(--border-color); position: relative; }
+        .modal-poster { flex-shrink: 0; width: 280px; }
+        .modal-poster img { width: 100%; height: 100%; object-fit: cover; border-radius: 20px 0 0 20px; }
+        .modal-info { padding: 32px; flex: 1; display: flex; flex-direction: column; }
+        .modal-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; color: var(--text-primary); }
+        .modal-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; }
+        .modal-rating { background: rgba(243,156,18,0.2); color: #f39c12; padding: 6px 12px; border-radius: 6px; font-weight: 600; font-size: 1rem; }
+        .modal-type { background: rgba(255,255,255,0.1); color: var(--text-secondary); padding: 6px 12px; border-radius: 6px; font-size: 0.9rem; }
+        .modal-detail-row { display: flex; margin-bottom: 12px; }
+        .modal-detail-label { color: var(--text-secondary); font-size: 0.9rem; min-width: 70px; }
+        .modal-detail-value { color: var(--text-primary); font-size: 0.9rem; }
+        .modal-desc { color: var(--text-secondary); line-height: 1.8; margin-bottom: 24px; font-size: 1rem; flex: 1; }
+        .modal-buttons { display: flex; gap: 15px; margin-top: auto; }
+        .btn-modal { padding: 14px 30px; border-radius: 10px; border: none; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s; }
+        .btn-modal-primary { background: var(--primary-color); color: white; }
+        .btn-modal-primary:hover { background: #c0392b; transform: translateY(-2px); }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: rgba(255,255,255,0.1); border: none; color: var(--text-secondary); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        .modal-close:hover { background: rgba(255,255,255,0.2); color: var(--text-primary); }
+        .modal-content { -ms-overflow-style: none; scrollbar-width: none; }
+        .modal-content::-webkit-scrollbar { display: none; }
+        footer p { color: var(--text-secondary); font-size: 0.9rem; }
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
+            .main-content { padding: 0 15px; }
+            .hero-content { padding: 25px; }
+            .hero-title { font-size: 1.5rem; }
+            .movies-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+            .movie-info { padding: 12px; }
+            .movie-title { font-size: 0.9rem; }
+            .modal-content { flex-direction: column; max-width: 90%; }
+            .modal-poster { width: 100%; }
+            .modal-poster img { border-radius: 20px 20px 0 0; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">🎬 光影世界</div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">动作</a></li>
-                <li><a href="#">喜剧</a></li>
-                <li><a href="#">科幻</a></li>
-                <li><a href="#">悬疑</a></li>
-                <li><a href="#">动画</a></li>
-            </ul>
-        </nav>
-        <div class="search-box">
-            <input type="text" placeholder="搜索电影...">
-            <button>🔍</button>
-        </div>
-        <button class="mobile-menu-btn">☰</button>
-    </header>
+    <main class="main-content">
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">探索光影世界，发现精彩故事</h1>
+                <p class="hero-desc">精选全球优质影片，为您呈现视觉盛宴</p>
+            </div>
+        </section>
 
-    <section class="hero-section">
-        <div class="hero-slider" id="heroSlider"></div>
-    </section>
+        <section class="categories-section">
+            <div class="section-header">
+                <h2 class="section-title">分类浏览</h2>
+            </div>
+            <div class="categories">
+                <span class="category-tag active">全部</span>
+                <span class="category-tag">动作</span>
+                <span class="category-tag">喜剧</span>
+                <span class="category-tag">科幻</span>
+                <span class="category-tag">悬疑</span>
+                <span class="category-tag">爱情</span>
+                <span class="category-tag">动画</span>
+                <span class="category-tag">剧情</span>
+            </div>
+        </section>
 
-    <section class="categories-section">
-        <h2 class="section-title">分类浏览</h2>
-        <div class="categories">
-            <span class="category-tag">全部</span>
-            <span class="category-tag">动作</span>
-            <span class="category-tag">喜剧</span>
-            <span class="category-tag">科幻</span>
-            <span class="category-tag">悬疑</span>
-            <span class="category-tag">爱情</span>
-            <span class="category-tag">动画</span>
-        </div>
-    </section>
+        <section class="movies-section">
+            <div class="section-header">
+                <h2 class="section-title" id="mainSectionTitle">新片上线</h2>
+            </div>
+            <div class="movies-grid" id="newReleasesGrid"></div>        
+        </section>
 
-    <section class="movies-section">
-        <h2 class="section-title">新片上线</h2>
-        <div class="movies-grid" id="newReleasesGrid"></div>
-    </section>
-
-    <section class="movies-section">
-        <h2 class="section-title">高分推荐</h2>
-        <div class="movies-grid" id="topRatedGrid"></div>
-    </section>
+        <section class="movies-section">
+            <div class="section-header">
+                <h2 class="section-title">高分推荐</h2>
+            </div>
+            <div class="movies-grid" id="topRatedGrid"></div>
+        </section>
+    </main>
 
     <footer>
-        <p>© 2024 光影世界</p>
+        <p>© 2026 光影世界 - 电影推荐站</p>
     </footer>
+
+    <div class="modal-overlay" id="movieModal">
+        <div class="modal-content"></div>
+    </div>
 
     <script>
         const movies = [
-            { id: 1, title: "肖申克的救赎", rating: 9.7, type: "剧情/犯罪", poster: "https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg", playUrl: "https://so.iqiyi.com/so/q_肖申克的救赎" },
-            { id: 2, title: "阿甘正传", rating: 9.5, type: "剧情/爱情", poster: "https://image.tmdb.org/t/p/w500/sy6DvAu72kjoseZEjocnm2ZZ09i.jpg", playUrl: "https://so.iqiyi.com/so/q_阿甘正传" },
-            { id: 3, title: "泰坦尼克号", rating: 9.4, type: "爱情/灾难", poster: "https://image.tmdb.org/t/p/w500/yDI6D5ZQh67YU4r2gX3mGy30GSt.jpg", playUrl: "https://so.iqiyi.com/so/q_泰坦尼克号" },
-            { id: 4, title: "盗梦空间", rating: 9.3, type: "科幻/悬疑", poster: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg", playUrl: "https://so.iqiyi.com/so/q_盗梦空间" },
-            { id: 5, title: "星际穿越", rating: 9.4, type: "科幻/冒险", poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg", playUrl: "https://so.iqiyi.com/so/q_星际穿越" },
-            { id: 6, title: "楚门的世界", rating: 9.3, type: "剧情/喜剧", poster: "https://image.tmdb.org/t/p/w500/6V6Vl50GfX6f09bH86p5lnj7dml.jpg", playUrl: "https://so.iqiyi.com/so/q_楚门的世界" },
-            { id: 7, title: "教父", rating: 9.3, type: "犯罪/剧情", poster: "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg", playUrl: "https://so.iqiyi.com/so/q_教父" },
-            { id: 8, title: "蝙蝠侠：黑暗骑士", rating: 9.2, type: "动作/犯罪", poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg", playUrl: "https://so.iqiyi.com/so/q_蝙蝠侠黑暗骑士" },
-            { id: 9, title: "这个杀手不太冷", rating: 9.4, type: "动作/剧情", poster: "https://image.tmdb.org/t/p/w500/4uX5wzZbr88uQLIqT3yK6z0JFmH.jpg", playUrl: "https://so.iqiyi.com/so/q_这个杀手不太冷" },
-            { id: 10, title: "千与千寻", rating: 9.4, type: "动画/奇幻", poster: "https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg", playUrl: "https://so.iqiyi.com/so/q_千与千寻" },
-            { id: 11, title: "寻梦环游记", rating: 9.1, type: "动画/冒险", poster: "https://image.tmdb.org/t/p/w500/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg", playUrl: "https://so.iqiyi.com/so/q_寻梦环游记" },
-            { id: 12, title: "疯狂动物城", rating: 9.2, type: "动画/喜剧", poster: "https://image.tmdb.org/t/p/w500/sM33SANp9z6rXW8Itn7NnG1GOEs.jpg", playUrl: "https://so.iqiyi.com/so/q_疯狂动物城" },
-            { id: 13, title: "流浪地球", rating: 9.2, type: "科幻/灾难", poster: "https://image.tmdb.org/t/p/w500/xBCPdG59uU83r3Lvh9F3hLgW9lJ.jpg", playUrl: "https://so.iqiyi.com/so/q_流浪地球" },
-            { id: 14, title: "战狼2", rating: 9.0, type: "动作/战争", poster: "https://image.tmdb.org/t/p/w500/m2z9cM9eH0n5kfC1vV5X8Q7N8aZ.jpg", playUrl: "https://so.iqiyi.com/so/q_战狼2" },
-            { id: 15, title: "我不是药神", rating: 9.0, type: "剧情/现实", poster: "https://image.tmdb.org/t/p/w500/3Q94H7V9zxR494FSS6JcRMEW1lL.jpg", playUrl: "https://so.iqiyi.com/so/q_我不是药神" },
-            { id: 16, title: "哪吒之魔童降世", rating: 8.9, type: "动画/奇幻", poster: "https://image.tmdb.org/t/p/w500/h4VB6m0RwcicVEZvzftYZyKX80b.jpg", playUrl: "https://so.iqiyi.com/so/q_哪吒之魔童降世" },
-            { id: 17, title: "唐人街探案", rating: 8.6, type: "喜剧/悬疑", poster: "https://image.tmdb.org/t/p/w500/8bHLd8g6DwwQz0mD1sB9Y7y4o4E.jpg", playUrl: "https://so.iqiyi.com/so/q_唐人街探案" },
-            { id: 18, title: "你好，李焕英", rating: 9.0, type: "喜剧/亲情", poster: "https://image.tmdb.org/t/p/w500/200Xf9o7gybYys8i5K6G38a94kR.jpg", playUrl: "https://so.iqiyi.com/so/q_你好李焕英" },
-            { id: 19, title: "误杀", rating: 8.7, type: "悬疑/犯罪", poster: "https://image.tmdb.org/t/p/w500/6D3dK1O9STqHkOv14W41b2Ux6lx.jpg", playUrl: "https://so.iqiyi.com/so/q_误杀" },
-            { id: 20, title: "少年的你", rating: 8.7, type: "剧情/校园", poster: "https://image.tmdb.org/t/p/w500/qLmdKa1KO5h70dWRME7dC96x5bS.jpg", playUrl: "https://so.iqiyi.com/so/q_少年的你" }
+            { id: 1, title: "肖申克的救赎", rating: 9.7, type: "剧情/犯罪", year: "1994", director: "弗兰克·德拉邦特", actors: "蒂姆·罗宾斯, 摩根·弗里曼", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=shawshank%20redemption%20movie%20poster%20prison%20hope&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_肖申克的救赎", desc: "一场精心策划的谋杀案使银行家安迪·杜佛兰蒙冤入狱，被判处终身监禁。在肖申克监狱的漫长岁月里，他结识了狱中'权威人物'瑞德，并凭借自己的智慧和毅力，不仅为监狱图书馆争取到扩建资金，还暗中用一把小锤子挖通了一条长达二十年的越狱通道。最终，在一个风雨交加的夜晚，安迪成功逃出监狱，重获自由并与瑞德在墨西哥的海滩重逢。这部电影深刻探讨了希望、友谊与自由的主题，被誉为影史最伟大的电影之一。" }, 
+            { id: 2, title: "阿甘正传", rating: 9.5, type: "剧情/爱情", year: "1994", director: "罗伯特·泽米吉斯", actors: "汤姆·汉克斯, 罗宾·怀特", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=forrest%20gump%20movie%20poster%20running%20man&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_阿甘正传", desc: "智商只有75的阿甘，虽然智力不及常人，但凭借自己的努力和善良，参与了美国历史上的诸多重大事件。他参加过越南战争并获得荣誉勋章，创办了成功的捕虾公司成为亿万富翁，还与约翰·列侬等名人会面。阿甘用真诚和坚持赢得了人生的成功与爱情，他的故事告诉我们：人生就像一盒巧克力，你永远不知道下一颗是什么味道。影片以温暖幽默的方式展现了一个普通人不平凡的一生。" },        
+            { id: 3, title: "泰坦尼克号", rating: 9.4, type: "爱情/灾难", year: "1997", director: "詹姆斯·卡梅隆", actors: "莱昂纳多·迪卡普里奥, 凯特·温丝莱特", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=titanic%20ship%20ocean%20romance%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_泰坦尼克号", desc: "1912年，号称'永不沉没'的豪华游轮泰坦尼克号从英国南安普顿出发，开始了它的处女航。贫穷画家杰克在船上与富家女露丝相遇，两人跨越阶级的差异坠入爱河。然而，游轮在航行中撞上冰山，沉没在大西洋深处。在生死关头，杰克为了让露丝存活，将生存的机会让给了她，自己则冻死在冰冷的海水中。这段凄美动人的爱情故事在沉船灾难中成为永恒，影片以其震撼的视觉效果和感人的情节成为影史经典，全球票房超过21亿美元。" },    
+            { id: 4, title: "盗梦空间", rating: 9.3, type: "科幻/悬疑", year: "2010", director: "克里斯托弗·诺兰", actors: "莱昂纳多·迪卡普里奥, 约瑟夫·高登-莱维特", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=inception%20dream%20sci-fi%20movie%20poster%20spinning%20top&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_盗梦空间", desc: "道姆·柯布是一名专门从事意识深层盗梦的高手，他能够潜入目标的梦境窃取机密。然而，他的妻子在梦境中的幻影始终困扰着他，这源于一次失败的'植入'任务。接受最后一次任务后，柯布必须在层层嵌套的梦境中完成'植入思想'的艰巨任务，同时面对现实与梦境的模糊边界。影片以其复杂的叙事结构和深刻的哲学思考成为科幻电影的里程碑。" },        
+            { id: 5, title: "星际穿越", rating: 9.4, type: "科幻/冒险", year: "2014", director: "克里斯托弗·诺兰", actors: "马修·麦康纳, 安妮·海瑟薇", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=interstellar%20space%20black%20hole%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_星际穿越", desc: "未来地球环境恶化，沙尘暴频发，人类面临灭绝危机。前宇航员库珀带领探险队穿越虫洞，进入未知星系寻找适合人类居住的新家园。在漫长的星际旅途中，库珀经历了时间膨胀、黑洞引力等极端挑战，与女儿墨菲之间跨越时空的情感纽带成为支撑他前行的力量。影片深刻探讨了爱与时间的关系，以其严谨的科学设定和宏大的视觉效果受到广泛赞誉。" },        
+            { id: 6, title: "楚门的世界", rating: 9.3, type: "剧情/喜剧", year: "1998", director: "彼得·威尔", actors: "金·凯瑞, 劳拉·琳妮", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=truman%20show%20tv%20dome%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_楚门的世界", desc: "楚门·伯班克从出生起就活在一个巨大的摄影棚里，他的一切都是真人秀节目的一部分。所有亲友都是演员，天空是人造的，海洋是摄影棚的水池。当楚门逐渐发现身边的异常时，他开始怀疑这个世界的真实性。最终，他面临着艰难的选择：留在熟悉但虚假的世界，还是冒险逃离寻找真实的人生。影片以黑色幽默的方式探讨了媒体时代的真实性和个人自由。" },    
+            { id: 7, title: "教父", rating: 9.3, type: "犯罪/剧情", year: "1972", director: "弗朗西斯·福特·科波拉", actors: "马龙·白兰度, 阿尔·帕西诺", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=godfather%20mafia%20dark%20suit%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_教父", desc: "黑手党教父维托·柯里昂在一次暗杀中受伤，家族陷入危机。小儿子迈克尔原本是正直的军人，对家族事务不屑一顾，但在父亲受伤后被迫卷入家族事务。在经历背叛和暴力后，迈克尔逐渐成长为新一代教父，展现了黑手党家族的权力交接和道德沉沦。影片被认为是黑帮电影的巅峰之作，以其精湛的叙事和深刻的人物刻画成为影史经典。" },
+            { id: 8, title: "蝙蝠侠：黑暗骑士", rating: 9.2, type: "动作/犯罪", year: "2008", director: "克里斯托弗·诺兰", actors: "克里斯蒂安·贝尔, 希斯·莱杰", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=batman%20dark%20knight%20joker%20gotham%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_蝙蝠侠黑暗骑士", desc: "蝙蝠侠面对最危险的敌人小丑，这个混乱的化身在哥谭市制造恐慌和混乱。小丑挑战蝙蝠侠的底线，让他在拯救城市和坚守原则之间做出艰难选择。希斯·莱杰饰演的小丑成为影史经典反派形象，他的表演被认为是影史最佳反派表演之一。影片深刻探讨了正义与邪恶的边界，以其黑暗的基调成为超级英雄电影的标杆。" },
+            { id: 9, title: "这个杀手不太冷", rating: 9.4, type: "动作/剧情", year: "1994", director: "吕克·贝松", actors: "让·雷诺, 娜塔莉·波特曼", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=leon%20professional%20hitman%20girl%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_这个杀手不太冷", desc: "职业杀手莱昂独自居住在纽约的公寓里，过着孤独的生活，唯一的伙伴是一盆绿植。某天，他意外收留了被黑帮追杀的12岁女孩玛蒂尔达。两人之间产生了特殊的情感，莱昂教玛蒂尔达射击和生存技巧，玛蒂尔达则为莱昂的生活带来温暖和色彩。最终，莱昂为保护玛蒂尔达牺牲了自己，留下了永恒的经典画面。影片以其独特的人物关系和动人的情感成为经典。" },
+            { id: 10, title: "千与千寻", rating: 9.4, type: "动画/奇幻", year: "2001", director: "宫崎骏", actors: "柊瑠美, 入野自由", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=spirited%20away%20anime%20bath%20house%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_千与千寻", desc: "少女千寻随父母搬家途中误入神灵世界，父母因贪吃变成猪。千寻为了拯救父母，在汤屋老板汤婆婆手下工作，经历了一系列奇幻冒险。她结识了神秘少年白龙，逐渐成长并找回勇气。影片通过千寻的旅程，探讨了成长、责任与环保等主题，以其精美的画面和深刻的内涵成为宫崎骏的代表作之一。" },        
+            { id: 11, title: "寻梦环游记", rating: 9.1, type: "动画/冒险", year: "2017", director: "李·昂克里奇", actors: "安东尼·冈萨雷斯, 盖尔·加西亚·贝纳尔", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=coco%20pixar%20skeleton%20day%20of%20dead%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_寻梦环游记", desc: "男孩米格热爱音乐，但家族禁止音乐。在亡灵节这天，他误入亡灵世界，揭开了曾祖父的秘密。在亡灵世界中，米格找到了曾祖父埃克托，发现了家族的真相，并帮助埃克托获得家人的记忆。影片温暖感人，探讨了亲情、记忆与梦想的主题，以其独特的视觉风格和动人的故事获得奥斯卡最佳动画长片奖。" },    
+            { id: 12, title: "疯狂动物城", rating: 9.2, type: "动画/喜剧", year: "2016", director: "拜伦·霍华德", actors: "金妮弗·古德温, 杰森·贝特曼", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=zootopia%20rabbit%20fox%20animated%20city%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_疯狂动物城", desc: "兔子朱迪从小梦想成为警察，来到动物城实现理想。在全是大型动物的警察局，朱迪被分配贴罚单的工作。她与狐狸尼克搭档，破获了一起惊天大案，揭露了动物城的阴谋。影片通过动物世界探讨了偏见、梦想与友谊的主题，充满幽默与温情，成为迪士尼动画的经典之作。" },
+            { id: 13, title: "霸王别姬", rating: 9.6, type: "剧情/爱情", year: "1993", director: "陈凯歌", actors: "张国荣, 张丰毅", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=farewell%20my%20concubine%20chinese%20opera%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_霸王别姬", desc: "两个京剧演员从小一起长大，段小楼和程蝶衣演绎《霸王别姬》成为名角。蝶衣对京剧艺术执着追求，甚至分不清戏里戏外，将自己完全融入虞姬的角色中。半个世纪的风雨变迁中，两人经历了友情、爱情和时代的考验。影片展现了对艺术的执着和时代变迁下的人性挣扎，被誉为中国电影的巅峰之作，是唯一一部获得戛纳金棕榈奖的华语电影。" },
+            { id: 14, title: "辛德勒的名单", rating: 9.5, type: "剧情/历史", year: "1993", director: "史蒂文·斯皮尔伯格", actors: "连姆·尼森, 拉尔夫·费因斯", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=schindlers%20list%20holocaust%20black%20white%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_辛德勒的名单", desc: "德国商人奥斯卡·辛德勒在二战期间，原本只是为了赚钱而雇用犹太人。但随着纳粹对犹太人的迫害加剧，辛德勒良心觉醒，开始尽其所能挽救犹太人的生命。他通过贿赂纳粹官员，将1200名犹太人从死亡集中营中救出，让他们在自己的工厂中工作。影片以黑白画面呈现，震撼人心，获得了奥斯卡最佳影片等多个奖项。" },
+            { id: 15, title: "指环王：王者归来", rating: 9.3, type: "奇幻/冒险", year: "2003", director: "彼得·杰克逊", actors: "伊利亚·伍德, 维果·莫腾森", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=lord%20of%20the%20rings%20fantasy%20epic%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_指环王王者归来", desc: "中土世界的最终决战即将展开。弗罗多和山姆继续前往末日火山销毁魔戒，阿拉贡、莱戈拉斯和吉姆利带领联军对抗黑暗魔君索伦的大军。在甘道夫的带领下，各方势力集结，最终弗罗多完成使命，正义战胜邪恶。影片是奇幻史诗的巅峰之作，获得了奥斯卡最佳影片等11项大奖，创造了影史纪录。" },
+            { id: 16, title: "黑客帝国", rating: 9.0, type: "科幻/动作", year: "1999", director: "沃卓斯基姐妹", actors: "基努·里维斯, 劳伦斯·菲什伯恩", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=matrix%20sci-fi%20cyberpunk%20action%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_黑客帝国", desc: "尼奥发现自己生活的世界是由机器创造的虚拟矩阵，人类实际上被当作能源来源。在墨菲斯和崔妮蒂的引导下，尼奥加入反抗军，学习操控矩阵中的规则，成为预言中的'救世主'。影片以其开创性的视觉效果（如子弹时间）和哲学思考成为科幻经典，探讨了真实与虚拟、自由与奴役的主题。" },
+            { id: 17, title: "速度与激情7", rating: 8.5, type: "动作/犯罪", year: "2015", director: "温子仁", actors: "范·迪塞尔, 保罗·沃克", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=fast%20and%20furious%20cars%20racing%20action%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_速度与激情7", desc: "多米尼克团队面对新敌人德卡特·肖的复仇，他为弟弟欧文·肖报仇而来。团队成员们驾驶各种豪车，在阿布扎比摩天大楼间穿梭，在洛杉矶街头追逐，上演了一系列惊心动魄的飞车追逐。影片也是主演保罗·沃克的遗作，片尾的告别令人动容，全球票房超过15亿美元。" },
+            { id: 18, title: "复仇者联盟4", rating: 9.0, type: "动作/科幻", year: "2019", director: "安东尼·罗素", actors: "小罗伯特·唐尼, 克里斯·埃文斯", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=avengers%20endgame%20superheroes%20marvel%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_复仇者联盟4", desc: "灭霸打响指后，宇宙一半生命消失。复仇者们集结进行终局之战，穿越时空收集无限宝石，试图逆转无限。钢铁侠、美国队长、雷神等超级英雄迎来最终对决，钢铁侠的牺牲成为漫威电影宇宙第三阶段的终结。影片场面宏大感人，全球票房超过27亿美元，成为影史票房冠军。" },
+            { id: 19, title: "蜘蛛侠：平行宇宙", rating: 8.7, type: "动画/科幻", year: "2018", director: "鲍勃·佩尔西凯蒂", actors: "沙梅克·摩尔, 杰克·约翰逊", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=spider%20man%20into%20the%20spider%20verse%20animated%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_蜘蛛侠平行宇宙", desc: "少年迈尔斯·莫拉莱斯在被蜘蛛咬后获得超能力，却意外发现自己并非唯一的蜘蛛侠。来自不同宇宙的蜘蛛侠们聚集在一起，包括彼得·帕克、女蜘蛛侠格温、暗影蜘蛛侠等。他们必须共同对抗邪恶的金并，迈尔斯也在过程中成长为真正的英雄。影片以其独特的视觉风格和多元宇宙的设定获得奥斯卡最佳动画长片奖。" },
+            { id: 20, title: "哈利波特与魔法石", rating: 9.1, type: "奇幻/冒险", year: "2001", director: "克里斯·哥伦布", actors: "丹尼尔·雷德克里夫, 鲁伯特·格林特", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=harry%20potter%20magic%20wizard%20hogwarts%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_哈利波特与魔法石", desc: "哈利·波特在11岁生日时得知自己是巫师，进入霍格沃茨魔法学校学习。他结识了罗恩和赫敏，开始了自己的魔法之旅。在学校里，哈利发现了魔法石的秘密，并与伏地魔展开第一次交锋。影片开启了哈利波特魔法世界的大门，以其奇幻的设定和温馨的友情成为全球现象级电影。" },
+            { id: 21, title: "无间道", rating: 9.3, type: "犯罪/悬疑", year: "2002", director: "刘伟强", actors: "刘德华, 梁朝伟", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=infernal%20affairs%20hong%20kong%20crime%20thriller%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_无间道", desc: "警察陈永仁被派往黑帮做卧底，黑帮刘建明则被安插进警局。两人在正邪之间游走，互相试探，展开了一场惊心动魄的心理较量。在复杂的身份和忠诚之间，两人都面临着道德的困境。影片以紧凑的剧情和深刻的人物刻画成为香港警匪片的经典，被马丁·斯科塞斯翻拍为《无间行者》。" },
+            { id: 22, title: "让子弹飞", rating: 9.0, type: "喜剧/动作", year: "2010", director: "姜文", actors: "姜文, 葛优", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=let%20the%20bullets%20fly%20chinese%20comedy%20western%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_让子弹飞", desc: "土匪张麻子摇身一变成为鹅城县长，与当地恶霸黄四郎展开了一场斗智斗勇的较量。张麻子表面搜刮钱财，实则为民除害。影片充满黑色幽默和精彩对白，姜文、葛优、周润发三大影帝同台飙戏，成为华语电影的经典之作，引发了广泛的社会讨论和解读。" },
+            { id: 23, title: "流浪地球", rating: 9.2, type: "科幻/灾难", year: "2019", director: "郭帆", actors: "吴京, 屈楚萧", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=wandering%20earth%20chinese%20sci-fi%20space%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_流浪地球", desc: "太阳即将毁灭，人类启动'流浪地球'计划，带着地球踏上逃离太阳系的漫长旅程。在木星引力危机中，刘启和救援队成员们必须在极端环境下完成救援任务。影片展现了人类在绝境中的勇气与团结，开启了中国科幻电影的新纪元，成为中国影史票房亚军。" },
+            { id: 24, title: "哪吒之魔童降世", rating: 8.9, type: "动画/奇幻", year: "2019", director: "饺子", actors: "吕艳婷, 囧森瑟夫", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=nezha%20chinese%20animation%20fantasy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_哪吒之魔童降世", desc: "哪吒本是魔丸转世，天生带有魔性，被世人误解。在成长过程中，他与命运抗争，打破成见，最终选择拯救陈塘关百姓。影片颠覆传统神话形象，塑造了一个反叛、热血的新哪吒，成为国产动画的里程碑，中国影史票房冠军。" },
+            { id: 25, title: "我不是药神", rating: 9.0, type: "剧情/现实", year: "2018", director: "文牧野", actors: "徐峥, 王传君", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=dying%20to%20survive%20chinese%20drama%20medicine%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_我不是药神", desc: "程勇从一个保健品商贩变成了白血病患者的希望，他走私印度仿制药'格列宁'，帮助无数患者获得生存的机会。在利益与道德之间，程勇做出了艰难的选择。影片根据真实事件改编，深刻反映了现实社会中的医疗问题，引发广泛社会讨论，推动了中国医疗政策的改革。" },
+            { id: 26, title: "你的名字", rating: 9.1, type: "动画/爱情", year: "2016", director: "新海诚", actors: "神木隆之介, 上白石萌音", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=your%20name%20anime%20romance%20time%20travel%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_你的名字", desc: "住在乡下的三叶和东京的立花泷突然开始交换身体，彼此体验对方的生活。通过手机短信，两人逐渐产生感情。然而，当泷去寻找三叶时，却发现她所在的小镇三年前已被陨石摧毁。跨越时空的命运之恋，在新海诚唯美的画面中展开，成为日本动画电影的票房冠军。" },
+            { id: 27, title: "冰雪奇缘", rating: 8.4, type: "动画/奇幻", year: "2013", director: "克里斯·巴克", actors: "伊迪娜·门泽尔, 克里斯汀·贝尔", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=frozen%20disney%20animation%20ice%20princess%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_冰雪奇缘", desc: "艾莎女王的冰雪魔法意外冰封了整个阿伦黛尔王国。安娜公主踏上冒险之旅，与山民克里斯托弗、驯鹿斯文和雪人奥拉夫一起寻找姐姐。在过程中，安娜学会了真爱并不只是浪漫爱情，姐妹情深才是拯救王国的关键。影片主题曲《Let It Go》成为全球热门歌曲。" },
+            { id: 28, title: "侏罗纪世界", rating: 8.1, type: "科幻/冒险", year: "2015", director: "科林·特莱沃若", actors: "克里斯·帕拉特, 布莱丝·达拉斯·霍华德", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=jurassic%20world%20dinosaurs%20theme%20park%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_侏罗纪世界", desc: "侏罗纪主题公园中，基因改造的恐龙'暴虐霸王龙'失控，游客们陷入了一场惊心动魄的逃亡。欧文和克莱尔必须带领众人逃离恐龙的追击。影片充满紧张刺激的动作场面，恐龙特效逼真震撼，全球票房超过16亿美元。" },
+            { id: 29, title: "头号玩家", rating: 8.5, type: "科幻/冒险", year: "2018", director: "史蒂文·斯皮尔伯格", actors: "泰伊·谢里丹, 奥利维亚·库克", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=ready%20player%20one%20virtual%20reality%20game%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_头号玩家", desc: "在虚拟现实游戏绿洲中，主角韦德寻找彩蛋，与邪恶势力IOI展开较量。影片充满80年代流行文化彩蛋，从电影、游戏到音乐，斯皮尔伯格打造了一场视觉盛宴。最终韦德赢得游戏，却选择让绿洲定期关闭，提醒人们珍惜现实生活。" },
+            { id: 30, title: "疯狂的麦克斯：狂暴之路", rating: 8.6, type: "动作/冒险", year: "2015", director: "乔治·米勒", actors: "查理兹·塞隆, 汤姆·哈迪", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=mad%20max%20fury%20road%20post-apocalyptic%20action%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_疯狂的麦克斯狂暴之路", desc: "在后末日世界中，弗瑞奥萨带领一群妇女逃离暴君的控制，与麦克斯一起在沙漠中展开一场惊心动魄的追逐。影片以其震撼的动作场面和女性主义主题获得广泛赞誉，被认为是动作电影的标杆之作。" },
+            { id: 31, title: "雷神3：诸神黄昏", rating: 8.3, type: "动作/奇幻", year: "2017", director: "塔伊加·维迪提", actors: "克里斯·海姆斯沃斯, 汤姆·希德勒斯顿", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=thor%20ragnarok%20marvel%20comic%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_雷神3诸神黄昏", desc: "雷神失去了锤子，被囚禁在萨卡星球。他必须在竞技场中面对绿巨人，并设法返回阿斯加德阻止死神海拉的毁灭计划。影片充满幽默和华丽的视觉效果，改变了雷神系列的基调，成为漫威电影宇宙中最受欢迎的电影之一。" },
+            { id: 32, title: "碟中谍：致命清算", rating: 8.4, type: "动作/冒险", year: "2023", director: "克里斯托弗·麦奎里", actors: "汤姆·克鲁斯, 丽贝卡·弗格森", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=mission%20impossible%20action%20spy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_碟中谍致命清算", desc: "伊森·亨特和他的团队必须追踪一种致命的新武器，防止其落入坏人手中。影片包含惊险的动作场面，包括摩托车跳崖和火车顶上的搏斗，汤姆·克鲁斯再次亲自完成高难度特技，延续了系列的高质量标准。" },
+            { id: 33, title: "红海行动", rating: 8.5, type: "动作/战争", year: "2018", director: "林超贤", actors: "张译, 黄景瑜", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=operation%20red%20sea%20chinese%20military%20action%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_红海行动", desc: "中国海军陆战队蛟龙突击队奉命执行撤侨任务，在异国他乡与恐怖分子展开殊死搏斗。影片以真实事件为蓝本，展现了中国军人的英勇无畏和专业素养，动作场面火爆逼真，成为中国军事动作电影的代表作。" },
+            { id: 34, title: "湄公河行动", rating: 8.3, type: "动作/犯罪", year: "2016", director: "林超贤", actors: "张涵予, 彭于晏", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=meikong%20river%20action%20thriller%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_湄公河行动", desc: "根据真实事件改编，中国警方跨境追捕杀害中国船员的毒贩集团。影片节奏紧张，动作场面火爆，展现了警方的英勇和智慧，同时也揭示了毒品犯罪的残酷性。" },
+            { id: 35, title: "摔跤吧！爸爸", rating: 9.0, type: "剧情/运动", year: "2016", director: "涅提·蒂瓦里", actors: "阿米尔·汗, 法缇玛·萨那·纱卡", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=dangal%20wrestling%20sports%20drama%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_摔跤吧爸爸", desc: "前摔跤手马哈维亚训练女儿成为摔跤冠军，挑战印度社会对女性的偏见。影片感人至深，传递了坚持梦想、打破性别刻板印象的积极主题。阿米尔·汗为角色增重又减重，展现了专业的表演态度。" },
+            { id: 36, title: "三傻大闹宝莱坞", rating: 9.2, type: "喜剧/剧情", year: "2009", director: "拉吉库马尔·希拉尼", actors: "阿米尔·汗, 卡琳娜·卡普尔", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=3%20idiots%20indian%20comedy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_三傻大闹宝莱坞", desc: "三个好朋友在印度顶尖工程学院的故事，批判了僵化的教育体制，倡导追求梦想和创新精神。影片幽默中带有深刻的社会批判，歌曲《Aal Izz Well》成为经典，引发了对教育制度的广泛讨论。" },
+            { id: 37, title: "西虹市首富", rating: 8.1, type: "喜剧/剧情", year: "2018", director: "闫非", actors: "沈腾, 宋芸桦", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=hello%20mr%20billionaire%20chinese%20comedy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_西虹市首富", desc: "落魄守门员王多鱼意外获得300亿遗产，但必须在30天内花光10亿才能继承。影片以荒诞搞笑的方式探讨了金钱与人性的关系，沈腾的精彩表演让观众笑中带泪，引发了对财富和幸福的思考。" },
+            { id: 38, title: "夏洛特烦恼", rating: 8.2, type: "喜剧/爱情", year: "2015", director: "闫非", actors: "沈腾, 马丽", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=goodbye%20mr%20loser%20chinese%20comedy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_夏洛特烦恼", desc: "夏洛在初恋婚礼上醉酒穿越回高中时代，重新追求初恋却发现最爱还是原配马冬梅。影片笑中带泪，引发观众对爱情和人生的思考，成为开心麻花电影的代表作之一。" },
+            { id: 39, title: "独行月球", rating: 8.0, type: "喜剧/科幻", year: "2022", director: "张吃鱼", actors: "沈腾, 马丽", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=moon%20man%20chinese%20comedy%20sci-fi%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_独行月球", desc: "维修工独孤月意外被留在月球，成为地球毁灭后唯一的幸存者。他与一只金刚鼠相依为命，上演了一场笑中带泪的太空冒险。影片结合了喜剧和科幻元素，展现了孤独与希望的主题。" },
+            { id: 40, title: "火星救援", rating: 8.5, type: "科幻/冒险", year: "2015", director: "雷德利·斯科特", actors: "马特·达蒙, 杰西卡·查斯坦", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=martian%20space%20survival%20sci-fi%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_火星救援", desc: "马克·沃特尼被意外留在火星上，必须利用科学知识和毅力独自生存，等待救援。影片以其严谨的科学设定和乐观的主题受到好评，马特·达蒙的精彩表演让观众感受到孤独中的希望。" },
+            { id: 41, title: "银翼杀手2049", rating: 8.3, type: "科幻/悬疑", year: "2017", director: "丹尼斯·维伦纽瓦", actors: "瑞恩·高斯林, 哈里森·福特", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=blade%20runner%202049%20cyberpunk%20sci-fi%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_银翼杀手2049", desc: "新一代银翼杀手K发现了一个可能颠覆社会的秘密，必须寻找前银翼杀手瑞克·戴克。影片视觉震撼，探讨了人工智能和人性的本质，被誉为科幻电影的艺术杰作。" },
+            { id: 42, title: "湮灭", rating: 7.8, type: "科幻/悬疑", year: "2018", director: "亚力克斯·加兰", actors: "娜塔莉·波特曼, 詹妮弗·杰森·李", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=annihilation%20sci-fi%20horror%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_湮灭", desc: "一支探险队进入神秘的'闪光'区域，发现了一个不断扩张的奇异生态系统。影片充满视觉奇观和哲学思考，探讨了自我毁灭和重生的主题，结局引人深思。" },
+            { id: 43, title: "沙丘", rating: 8.3, type: "科幻/冒险", year: "2021", director: "丹尼斯·维伦纽瓦", actors: "提莫西·查拉梅, 丽贝卡·弗格森", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=dune%20sci-fi%20epic%20desert%20planet%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_沙丘", desc: "保罗·亚崔迪家族被派往沙漠星球厄拉科斯开采珍贵的香料。影片以其宏伟的视觉效果和深刻的世界观构建成为科幻经典，展现了权力斗争和英雄成长的史诗故事。" },
+            { id: 44, title: "利刃出鞘", rating: 8.2, type: "悬疑/犯罪", year: "2019", director: "莱恩·约翰逊", actors: "丹尼尔·克雷格, 克里斯·埃文斯", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=knives%20out%20mystery%20whodunit%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_利刃出鞘", desc: "侦探布兰科调查富豪小说家的离奇死亡，发现每个家庭成员都有嫌疑。影片以经典侦探小说的形式展开，充满反转和惊喜，丹尼尔·克雷格饰演的侦探形象深入人心。" },
+            { id: 45, title: "消失的爱人", rating: 8.7, type: "悬疑/惊悚", year: "2014", director: "大卫·芬奇", actors: "本·阿弗莱克, 罗莎蒙德·派克", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=gone%20girl%20thriller%20mystery%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_消失的爱人", desc: "妻子艾米在结婚五周年当天突然失踪，丈夫尼克成为嫌疑人。随着真相逐渐浮出水面，一段扭曲的婚姻关系被揭露。影片以其黑暗的基调探讨了婚姻和媒体的复杂性，罗莎蒙德·派克的表演令人印象深刻。" },
+            { id: 46, title: "七宗罪", rating: 8.8, type: "悬疑/犯罪", year: "1995", director: "大卫·芬奇", actors: "摩根·弗里曼, 布拉德·皮特", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=seven%20se7en%20crime%20thriller%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_七宗罪", desc: "两名警探追捕一名以七宗罪为杀人动机的连环杀手。影片黑暗压抑，结局令人震惊，探讨了人性的阴暗面，成为悬疑电影的经典之作。" },
+            { id: 47, title: "告白", rating: 8.8, type: "悬疑/剧情", year: "2010", director: "中岛哲也", actors: "松隆子, 冈田将生", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=confessions%20japanese%20thriller%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_告白", desc: "教师森口悠子为女儿复仇，向杀害女儿的学生展开心理战。影片结构精巧，揭示了人性的复杂和教育的困境，以其独特的叙事方式和视觉风格受到好评。" },
+            { id: 48, title: "傲慢与偏见", rating: 8.7, type: "爱情/剧情", year: "2005", director: "乔·怀特", actors: "凯拉·奈特莉, 马修·麦克费登", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=pride%20and%20prejudice%20period%20romance%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_傲慢与偏见", desc: "伊丽莎白·贝内特与达西先生之间从误解到相爱的经典爱情故事。影片画面唯美，对白精彩，展现了19世纪英国社会的风貌，凯拉·奈特莉的表演让伊丽莎白的形象深入人心。" },
+            { id: 49, title: "爱在黎明破晓前", rating: 8.8, type: "爱情/剧情", year: "1995", director: "理查德·林克莱特", actors: "伊桑·霍克, 朱莉·德尔佩", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=before%20sunrise%20romance%20conversation%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_爱在黎明破晓前", desc: "杰西和塞琳在火车上相遇，决定在维也纳共度一晚。两人从白天聊到黑夜，探讨人生、爱情和哲学，展开了一段浪漫的邂逅。影片以对话为主，展现了灵魂伴侣般的交流，成为爱情电影的经典。" },
+            { id: 50, title: "甜蜜蜜", rating: 8.9, type: "爱情/剧情", year: "1996", director: "陈可辛", actors: "黎明, 张曼玉", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=almost%20a%20love%20story%20hong%20kong%20romance%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_甜蜜蜜", desc: "李翘和黎小军从内地来到香港，两人在漂泊中相互扶持，经历了十年的感情纠葛。影片以邓丽君的歌声贯穿始终，展现了香港回归前后的时代变迁和普通人的情感历程，成为华语爱情片经典。" },
+            { id: 51, title: "情书", rating: 8.9, type: "爱情/剧情", year: "1995", director: "岩井俊二", actors: "中山美穗, 柏原崇", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=love%20letter%20japanese%20romance%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_情书", desc: "渡边博子在未婚夫去世后，意外发现他中学时代的秘密。影片通过书信往来，揭开了一段暗恋的青春故事，唯美而感伤，成为日本纯爱电影的代表作。" },
+            { id: 52, title: "天空之城", rating: 9.1, type: "动画/奇幻", year: "1986", director: "宫崎骏", actors: "田中真弓, 横泽启子", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=castle%20in%20the%20sky%20anime%20fantasy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_天空之城", desc: "少女希达和少年巴斯寻找传说中的天空之城拉普达。影片充满冒险和奇幻元素，传达了对自然和和平的热爱，主题曲《伴随着你》成为经典。" },
+            { id: 53, title: "哈尔的移动城堡", rating: 9.1, type: "动画/奇幻", year: "2004", director: "宫崎骏", actors: "倍赏千惠子, 木村拓哉", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=howls%20moving%20castle%20anime%20fantasy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_哈尔的移动城堡", desc: "苏菲被女巫变成老太婆，逃到哈尔的移动城堡寻求帮助。影片融合了魔法、战争和爱情，探讨了勇气和自我认同的主题，哈尔的形象成为宫崎骏作品中最受欢迎的角色之一。" },
+            { id: 54, title: "幽灵公主", rating: 8.9, type: "动画/奇幻", year: "1997", director: "宫崎骏", actors: "石田百合子, 松田洋治", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=princess%20mononoke%20anime%20fantasy%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_幽灵公主", desc: "阿席达卡为了解救村庄被诅咒，来到森林寻求解药。他卷入了人类与森林精灵的冲突，展现了人与自然的永恒主题，影片以其宏大的世界观和深刻的环保主题受到赞誉。" },
+            { id: 55, title: "疯狂原始人", rating: 8.7, type: "动画/喜剧", year: "2013", director: "柯克·德·米科", actors: "尼古拉斯·凯奇, 艾玛·斯通", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=croods%20animated%20comedy%20prehistoric%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_疯狂原始人", desc: "咕噜家族在世界末日来临前踏上冒险之旅，遇到了一个聪明的现代人盖。影片充满欢乐和冒险，传达了拥抱变化的积极主题，成为梦工厂动画的经典之作。" },
+            { id: 56, title: "哪吒闹海", rating: 9.0, type: "动画/奇幻", year: "1979", director: "王树忱", actors: "梁正晖, 邱岳峰", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=nezha%20nao%20hai%20chinese%20classic%20animation%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_哪吒闹海", desc: "哪吒与东海龙宫发生冲突，为保护陈塘关百姓，他挺身而出。这部经典动画展现了中国传统神话的魅力，具有极高的艺术价值，是中国动画电影的里程碑之作。" },
+            { id: 57, title: "饮食男女", rating: 9.1, type: "剧情/家庭", year: "1994", director: "李安", actors: "郎雄, 吴倩莲", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=eat%20drink%20man%20woman%20taiwanese%20drama%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_饮食男女", desc: "退休大厨朱师傅和三个女儿的家庭故事，通过每周的家庭聚餐展现了亲情和人生选择。影片以美食为线索，探讨了传统与现代的冲突，展现了李安细腻的导演风格。" },
+            { id: 58, title: "活着", rating: 9.3, type: "剧情/家庭", year: "1994", director: "张艺谋", actors: "葛优, 巩俐", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=to%20live%20chinese%20drama%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_活着", desc: "福贵的一生经历了从富家少爷到普通农民的巨大转变，见证了中国几十年的历史变迁。影片深刻展现了生命的韧性和对生活的热爱，葛优和巩俐的表演堪称经典，获得了戛纳评审团大奖。" },
+            { id: 59, title: "泰坦尼克号", rating: 9.4, type: "爱情/灾难", year: "1997", director: "詹姆斯·卡梅隆", actors: "莱昂纳多·迪卡普里奥, 凯特·温丝莱特", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=titanic%20ship%20romance%20ocean%20disaster%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_泰坦尼克号", desc: "1912年，号称'永不沉没'的豪华游轮泰坦尼克号首航。贫穷画家杰克在船上与富家女露丝相遇，两人跨越阶级的差异坠入爱河。然而，游轮撞上冰山沉没，杰克为了让露丝存活，牺牲了自己。" },
+            { id: 60, title: "甜蜜蜜", rating: 8.9, type: "爱情/剧情", year: "1996", director: "陈可辛", actors: "黎明, 张曼玉", poster: "https://neeko-copilot.bytedance.net/api/text_to_image?prompt=sweet%20honey%20hong%20kong%20romance%20movie%20poster&image_size=portrait_4_3", playUrl: "https://so.iqiyi.com/so/q_甜蜜蜜", desc: "李翘和黎小军从内地来到香港，两人在漂泊中相互扶持，经历了十年的感情纠葛。影片以邓丽君的歌声贯穿始终，展现了香港回归前后的时代变迁和普通人的情感历程。" }
         ];
 
         function renderMovieCard(movie) {
-            return `<div class="movie-card"><div class="movie-poster"><img src="${movie.poster}" alt="${movie.title}"></div><div class="movie-info"><h3 class="movie-title">${movie.title}</h3><span class="movie-tag">${movie.type}</span><span class="movie-tag">⭐ ${movie.rating}</span></div></div>`;
+            return `
+                <div class="movie-card" data-movie-id="${movie.id}">
+                    <div class="movie-poster">
+                        <img src="${movie.poster}" alt="${movie.title}">
+                        <span class="movie-rating-badge">${movie.rating}</span>
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">${movie.title}</h3>
+                        <div class="movie-tags">
+                            <span class="movie-tag">${movie.type.split('/')[0]}</span>
+                            <span class="movie-tag">${movie.type.split('/')[1]}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
 
-        function initHeroSlider() {
-            const slider = document.getElementById('heroSlider');
-            const topMovies = movies.slice(0, 3);
-            topMovies.forEach((movie, index) => {
-                const slide = document.createElement('div');
-                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
-                slide.style.backgroundImage = `url(${movie.poster})`;
-                slide.innerHTML = `<div class="hero-content"><h1 class="hero-title">${movie.title}</h1><p class="hero-desc">评分: ${movie.rating} | ${movie.type}</p><button class="btn btn-primary" onclick="window.open('${movie.playUrl}', '_blank')">立即播放</button></div>`;
-                slider.appendChild(slide);
-            });
+        function renderMoviesGrid(containerId, moviesList) {
+            const container = document.getElementById(containerId);
+            if (moviesList.length > 0) {
+                container.innerHTML = moviesList.map(renderMovieCard).join('');
+            } else {
+                container.innerHTML = '<div style="text-align: center; padding: 40px; color: var(--text-secondary);">暂无该类型电影</div>';
+            }
         }
 
         function renderSections() {
-            document.getElementById('newReleasesGrid').innerHTML = movies.slice(0, 6).map(renderMovieCard).join('');
-            document.getElementById('topRatedGrid').innerHTML = movies.slice(0, 6).map(renderMovieCard).join('');
+            const newReleases = movies.slice(0, 6);
+            const topRated = movies.slice(6, 12);
+            
+            renderMoviesGrid('newReleasesGrid', newReleases);
+            renderMoviesGrid('topRatedGrid', topRated);
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            initHeroSlider();
+        function filterMoviesByCategory(category) {
+            const mainTitle = document.getElementById('mainSectionTitle');
+            if (category === '全部') {
+                mainTitle.textContent = '新片上线';
+                renderSections();
+                document.querySelector('.movies-section').style.display = 'block';
+                document.querySelector('.movies-section:last-of-type').style.display = 'block';
+            } else {
+                mainTitle.textContent = category;
+                const filteredMovies = movies.filter(movie => 
+                    movie.type.includes(category)
+                );
+                renderMoviesGrid('newReleasesGrid', filteredMovies);
+                renderMoviesGrid('topRatedGrid', []);
+                document.querySelector('.movies-section').style.display = 'block';
+                document.querySelector('.movies-section:last-of-type').style.display = 'none';
+            }
+        }
+
+        function showMovieModal(movieId) {
+            const movie = movies.find(m => m.id === parseInt(movieId));
+            if (!movie) return;
+            
+            const modal = document.getElementById('movieModal');
+            const content = modal.querySelector('.modal-content');
+            
+            content.innerHTML = `
+                <button class="modal-close" onclick="closeMovieModal()">×</button>
+                <div class="modal-poster">
+                    <img src="${movie.poster}" alt="${movie.title}">
+                </div>
+                <div class="modal-info">
+                    <h2 class="modal-title">${movie.title}</h2>
+                    <div class="modal-meta">
+                        <span class="modal-rating">⭐ ${movie.rating}</span>
+                        <span class="modal-type">${movie.type}</span>
+                        <span class="modal-type">${movie.year}</span>
+                    </div>
+                    <div class="modal-detail-row">
+                        <span class="modal-detail-label">导演：</span>
+                        <span class="modal-detail-value">${movie.director}</span>
+                    </div>
+                    <div class="modal-detail-row">
+                        <span class="modal-detail-label">主演：</span>
+                        <span class="modal-detail-value">${movie.actors}</span>
+                    </div>
+                    <p class="modal-desc">${movie.desc}</p>
+                    <div class="modal-buttons">
+                        <button class="btn-modal btn-modal-primary" onclick="window.open('${movie.playUrl}', '_blank'); closeMovieModal()">立即观看</button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMovieModal() {
+            const modal = document.getElementById('movieModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {       
             renderSections();
+            
+            const categoryTags = document.querySelectorAll('.category-tag');
+            categoryTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    categoryTags.forEach(t => t.classList.remove('active'));
+                    tag.classList.add('active');
+                    filterMoviesByCategory(tag.textContent);
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                const movieCard = e.target.closest('.movie-card');
+                const modalOverlay = e.target.closest('.modal-overlay');
+                
+                if (movieCard) {
+                    showMovieModal(movieCard.dataset.movieId);
+                } else if (modalOverlay && !e.target.closest('.modal-content')) {
+                    closeMovieModal();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeMovieModal();
+                }
+            });
         });
     </script>
 </body>
